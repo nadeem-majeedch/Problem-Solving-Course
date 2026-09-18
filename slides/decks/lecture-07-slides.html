@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 07 — Debugging as a Method · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 07 — Debugging as a Method</h1><h3>Learning objectives</h3><ul><li>Reproduce a defect with a minimal input</li><li>Form hypotheses and test them one at a time</li><li>Read error messages as evidence, not noise</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-025</code>, <code>cs-026</code>, <code>cs-027</code>, <code>cs-028</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Defect (bug)</strong> — code that does not meet its specification - distinct from a mistake you have not yet observed.</li><li><strong>Symptom</strong> — the observed wrong behaviour; often far from the defect's location.</li><li><strong>Reproduction</strong> — a specific input and sequence that makes the symptom appear on demand.</li><li><strong>Hypothesis</strong> — a testable claim about the cause; good hypotheses predict an experiment's result.</li><li><strong>Isolation</strong> — cutting the search space in half (or deleting code) until the defect is cornered.</li><li><strong>Regression test</strong> — a test that fails if a fixed defect ever returns.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The missing first item: reproduce, hypothesise, isolate</h2><div class='case'><span class='tag'>cs-025</span><p>Items [2.00, 3.50, 1.25] print a receipt of 4.75 instead of 6.75. Debug it by the method: reproduce, hypothesise, isolate, fix, verify.</p></div><p><strong>Expected:</strong> <code>4.75 6.75</code></p><p class='small'>Cost: Debugging cost, not runtime: one repro, one minimal input, one rerun. The method's value is that it terminates.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The ghost duplicate: aliasing proved by identity</h2><div class='case'><span class='tag'>cs-027</span><p>A task board shows one task list twice after a second edit. Prove the cause and fix it.</p></div><pre><code>lines = ["a", "b"]
+echoed = []
+<span class="k">for</span> i <span class="k">in</span> range(len(lines)):
+    echoed.append(lines[i])
+print(len(echoed), echoed[<span class="n">0</span>])</code></pre><p><strong>Expected:</strong> <code>duplicated rows with identity True; after the fix the rows differ and the check is False</code></p><p class='small'>Cost: O(k) extra per call for the copy - correctness buys the copying cost.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 07</div><div class='case'><span class='tag'>Case cs-025 · Beginner</span><h2>The Case of the Missing Sales</h2><p>A receipt program prints a total that is too low by exactly one item's price. Form hypotheses, design the minimal reproducing input, and localise the fault.</p></div><ul><li><code>**Input:** items [2.00, 3.50, 1.25]; receipt printed 5.50</code></li><li><code>**Output:** one item skipped (1.25 missing); repro input: 3 items, expected 6.75</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-025 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Write the one-line commit message that explains the mechanism, not the symptom."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-025 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 07</div><div class='case'><span class='tag'>Case cs-026 · Foundational</span><h2>The Off-by-One Invoice</h2><p>An invoice tool includes one extra row under specific conditions. Use bisection over input shapes to find the boundary condition that triggers the defect.</p></div><ul><li><code>**Input:** invoice rows; extra row appears only when qty is exactly 10</code></li><li><code>**Output:** boundary bug: condition qty &gt;= 10 should be qty &gt; 10; minimal repro: one row qty=10</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-026 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which hypothesis did you rank first, and what evidence moved it down the list?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-026 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 07</div><div class='case'><span class='tag'>Case cs-027 · Intermediate</span><h2>The Ghost Duplicate</h2><p>A task list occasionally shows one task twice after edits. Reason about shared references / aliasing as the cause and design the experiment that proves it.</p></div><ul><li><code>**Input:** tasks edited twice; list shows one task twice after edit 2</code></li><li><code>**Output:** aliasing: the same list object referenced twice; is-check (a is b) proves it</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-027 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Write the one-line commit message that explains the mechanism, not the symptom."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-027 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 07</div><div class='case'><span class='tag'>Case cs-028 · Advanced</span><h2>The Heisenbug</h2><p>A defect that disappears when a debug print is added. Discuss causes (ordering, mutation during iteration, hidden dependency) and design a strategy to catch it.</p></div><ul><li><code>**Input:** defect vanishes when print(i) is added to the loop</code></li><li><code>**Output:** candidates: loop mutates the list it iterates; set iteration order; time-dependent state</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-028 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which hypothesis did you rank first, and what evidence moved it down the list?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-028 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Editing code before reproducing the defect - destroys the evidence.</li><li>Experiments ordered by suspicion rather than by cost.</li><li>'Fixing' by deleting the failing feature (the defect remains, the symptom hides).</li><li>Declaring victory on one green test; neighbours must still pass.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Debugging as a Method</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>Order the clinic protocol steps.</li><li>Why fix nothing before the hypothesis is confirmed?</li><li>What is a regression test for?</li></ol>
+<div class="notes">Expected answers (instructor): reproduce, hypothesise, cheapest experiment, isolate, fix, re-test unconfirmed fixes destroy the evidence and add new defects to make a fixed defect fail permanently if it ever returns</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L07 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

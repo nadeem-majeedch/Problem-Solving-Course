@@ -1,0 +1,4 @@
+# Tooling-only test dependencies. The site build itself needs nothing but
+# the Python 3.12 standard library (see scripts/build_site.py), so the
+# deployment workflow installs nothing at all — reproducibility by default.
+pytest==8.3.4

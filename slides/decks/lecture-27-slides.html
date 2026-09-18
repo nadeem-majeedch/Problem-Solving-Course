@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 27 — Tables, Cleaning, and Anomalies · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 27 — Tables, Cleaning, and Anomalies</h1><h3>Learning objectives</h3><ul><li>Profile a table for missing and malformed values</li><li>Write cleaning rules and justify them</li><li>Detect duplicates and anomalies systematically</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-105</code>, <code>cs-106</code>, <code>cs-107</code>, <code>cs-140</code>, <code>cs-108</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Cleaning</strong> — making data fit its specification: normalise, repair, or reject with a log</li><li><strong>Normalisation</strong> — canonical formatting: trimming, casing, units, date formats</li><li><strong>Impossible value</strong> — a value violating a hard rule (age -3); reject, never repair silently</li><li><strong>Anomaly</strong> — a possible but surprising value; flag for review, do not auto-delete</li><li><strong>Missing-value policy</strong> — the declared rule for blanks: drop, fill (and how), or flag</li><li><strong>Audit trail</strong> — the list of every change and rejection, shipped with the cleaned data</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Room Booking Audit: rule-based cleaning</h2><div class='case'><span class='tag'>cs-105</span><p>Bookings with issues: '9:00-10:00' (fine), ' 10:30 - 11:30 ' (padded), '24:00-25:00' (invalid), '9:00-9:00' (empty). Write rules, apply them, report what was dropped and why.</p></div><pre><code>raw = ["<span class="n">9</span>:<span class="n">00</span>-<span class="n">10</span>:<span class="n">00</span>", " <span class="n">10</span>:<span class="n">30</span> - <span class="n">11</span>:<span class="n">30</span> ", "<span class="n">24</span>:<span class="n">00</span>-<span class="n">25</span>:<span class="n">00</span>", "<span class="n">9</span>:<span class="n">00</span>-<span class="n">9</span>:<span class="n">00</span>"]
+kept, dropped = [], []
+<span class="k">for</span> r <span class="k">in</span> raw:
+    norm = " ".join(r.split()).replace(" ", "")
+    s, e = norm.split("-")
+    sh, sm = map(int, s.split(":"))
+    eh, em = map(int, e.split(":"))
+    start, end = sh * <span class="n">60</span> + sm, eh * <span class="n">60</span> + em
+    <span class="k">if</span> <span class="k">not</span> (<span class="n">0</span> &lt;= start &lt; end &lt; <span class="n">24</span> * <span class="n">60</span>):
+        dropped.append((r, "invalid range"))
+    <span class="k">else</span>:
+        kept.append(f"{start:04d}-{end:04d}")
+print(kept)
+print(dropped)</code></pre><p><strong>Expected:</strong> <code>kept: 9:00-10:00 and 10:30-11:30 (normalised); dropped: the invalid and empty ranges</code></p><p class='small'>Cost: O(n) rows, each parsed in constant time.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Grade Typos: anomaly detection with limits</h2><div class='case'><span class='tag'>cs-106</span><p>Scores 78, 92, 850, 65, 88, -5. Flag impossible values; then discuss what you can and cannot conclude about suspicious-but-possible ones (e.g. 92 when the class mean is 40).</p></div><pre><code>scores = [<span class="n">78</span>, <span class="n">92</span>, <span class="n">850</span>, <span class="n">65</span>, <span class="n">88</span>, -<span class="n">5</span>]
+valid = [s <span class="k">for</span> s <span class="k">in</span> scores <span class="k">if</span> <span class="n">0</span> &lt;= s &lt;= <span class="n">100</span>]
+mean = sum(valid) / len(valid)
+var = sum((s - mean) ** <span class="n">2</span> <span class="k">for</span> s <span class="k">in</span> valid) / len(valid)
+sd = var ** <span class="n">0.5</span>
+review = [s <span class="k">for</span> s <span class="k">in</span> valid <span class="k">if</span> abs(s - mean) / sd &gt; <span class="n">2</span>]
+print(valid, mean, review)</code></pre><p><strong>Expected:</strong> <code>hard-dropped: 850 and -5; statistical review: none after cleaning</code></p><p class='small'>Cost: O(n); the guard against sd = 0 is where most student implementations break.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Sensor Dropout: missing values as a decision, not an accident</h2><div class='case'><span class='tag'>cs-108</span><p>Hourly readings 12.0, 11.5, None, None, 13.0, 12.5. Choose a policy (drop rows, fill zero, carry forward, fill mean), apply it, and state how the choice changes the story.</p></div><pre><code>readings = [<span class="n">12.0</span>, <span class="n">11.5</span>, <span class="k">None</span>, <span class="k">None</span>, <span class="n">13.0</span>, <span class="n">12.5</span>]
+present = [r <span class="k">for</span> r <span class="k">in</span> readings <span class="k">if</span> r is <span class="k">not</span> <span class="k">None</span>]
+drop_mean = sum(present) / len(present)
+zero_fill = [r <span class="k">if</span> r is <span class="k">not</span> <span class="k">None</span> <span class="k">else</span> <span class="n">0</span> <span class="k">for</span> r <span class="k">in</span> readings]
+fwd = []
+last = present[<span class="n">0</span>]
+<span class="k">for</span> r <span class="k">in</span> readings:
+    <span class="k">if</span> r is <span class="k">not</span> <span class="k">None</span>:
+        last = r
+    fwd.append(last)
+mean_fill = [r <span class="k">if</span> r is <span class="k">not</span> <span class="k">None</span> <span class="k">else</span> drop_mean <span class="k">for</span> r <span class="k">in</span> readings]
+print(len(present), round(drop_mean, <span class="n">2</span>))
+print(round(sum(zero_fill) / len(zero_fill), <span class="n">2</span>), round(sum(fwd) / len(fwd), <span class="n">2</span>), round(sum(mean_fill) / len(mean_fill), <span class="n">2</span>))</code></pre><p><strong>Expected:</strong> <code>drop: mean 12.25 (n=4); zero: 8.17; forward: 12.33; mean: 12.25</code></p><p class='small'>Cost: O(n) per policy; the cost is in the argument, not the loop.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 27</div><div class='case'><span class='tag'>Case cs-105 · Beginner</span><h2>The Room Booking Audit</h2><p>Booking rows with missing rooms, end-before-start times, and double bookings. Define rules, count violations, decide repairs vs flags.</p></div><ul><li><code>**Input:** rows: (room=NULL, 9-10), (B12, 10-9 end&lt;start), (B12, 13-14) twice (double), (B14, 9-10)</code></li><li><code>**Output:** 3 violations: missing room, inverted time, duplicate booking; repairs flagged not silent</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-105 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-105 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 27</div><div class='case'><span class='tag'>Case cs-106 · Foundational</span><h2>The Grade Typos</h2><p>Scores like 105, -3, 'eighty'. Categorise defects, choose a policy per category (fix, flag, drop), and defend each choice.</p></div><ul><li><code>**Input:** scores: 105, -3, 'eighty', 84, 92</code></li><li><code>**Output:** policies: 105 -&gt; flag (over 100, maybe bonus); -3 -&gt; correct to missing (impossible); 'eighty' -&gt; parse to 80 (known map); else keep</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-106 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-106 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 27</div><div class='case'><span class='tag'>Case cs-107 · Intermediate</span><h2>The Duplicate Students</h2><p>Same student appears with name variants and id typos. Design a matching rule with a manual-review queue; measure how much the rule catches vs leaves.</p></div><ul><li><code>**Input:** "Ada Lovelace" / "ada lovelace" / "A. Lovelace" / id "S2023-0471" vs "s2023-0471 "</code></li><li><code>**Output:** match rule: lowercase+strip id first (exact); name fuzzy (initials + surname); manual queue for the rest</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-107 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-107 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 27</div><div class='case'><span class='tag'>Case cs-140 · Intermediate</span><h2>The Sliced Anomaly</h2><p>Two campus bookshops, each with a coffee bar. Per-shop revenue per
+customer:</p></div><ul><li><code>**Input:** the per-bar revenue table and the customer-mix table</code></li><li><code>**Output:** North blended 6.67 vs South blended 13.50 — yet North</code></li><li><code>leads *within* both bars — plus the explanation and the fair comparison</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-140 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"The newspaper insists on one number per city. What single
+number would you defend, computed how — and what must you print next to
+it?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-140 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 27</div><div class='case'><span class='tag'>Case cs-108 · Advanced</span><h2>The Sensor Dropout</h2><p>Temperature sensor with gaps and spikes. Distinguish dropout vs anomaly, impute or flag, and show how each choice changes a downstream average.</p></div><ul><li><code>**Input:** temps: [12, 12.5, 13, None, 47, 12.8, None, 13]</code></li><li><code>**Output:** None = dropout (impute or flag, do NOT average over silently); 47 = spike (anomaly vs real heatwave - policy needed)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-108 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-108 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Cleaning silently - unlogged changes make the dataset unauditable and the analysis untrustworthy.</li><li>Auto-deleting anomalies - statistical flags nominate; hard rules reject; humans decide between them.</li><li>Hunting outliers before cleaning - the extreme values distort the very mean and sd used to flag.</li><li>Zero-filling missing values by habit - a blank is not a zero; each policy changes the story.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Tables, Cleaning, and Anomalies</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>Why report every cleaning rule?</li><li>What is a false merge in cs-107?</li><li>When is a gap an anomaly?</li></ol>
+<div class="notes">Expected answers (instructor): silence is falsification of the analysis; the tally is the audit trail two different students collapsed by a weak matching key when it breaks the series' established rhythm — context decides</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L27 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

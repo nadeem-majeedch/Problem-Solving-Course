@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 32 — The Whole Toolbox: Capstone Cases · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 32 — The Whole Toolbox: Capstone Cases</h1><h3>Learning objectives</h3><ul><li>Integrate the full toolbox on unfamiliar problems</li><li>Communicate a solution: model, algorithm, tests</li><li>Justify trade-offs under time pressure</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-125</code>, <code>cs-126</code>, <code>cs-127</code>, <code>cs-128</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Capstone</strong> — unseen problems solved end-to-end under time pressure, then debriefed against the method.</li><li><strong>The method</strong> — specify, model, attempt, verify, compare, communicate - the course's spine in six verbs.</li><li><strong>Plan defence</strong> — a two-minute oral justification of approach, complexity, and test plan before coding.</li><li><strong>Post-mortem</strong> — the written what-happened, why, and what-check-would-have-caught-it.</li><li><strong>Transfer</strong> — applying the method to problems whose surface stories are new - the real learning outcome.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Library Robot: capstone run-through</h2><div class='case'><span class='tag'>cs-125</span><p>A robot returns books: requests (minute, shelf) pairs arrive; the robot serves shelves in increasing minute order, one per minute, and idle-waits otherwise. Compute total idle time and the busiest shelf. Full method: model, plan, solve, test, present.</p></div><pre><code>requests = [(<span class="n">2</span>, "A"), (<span class="n">3</span>, "B"), (<span class="n">7</span>, "A"), (<span class="n">7</span>, "C"), (<span class="n">9</span>, "B")]
+requests.sort()
+clock = idle = <span class="n">0</span>
+tally = {}
+<span class="k">for</span> m, shelf <span class="k">in</span> requests:
+    <span class="k">if</span> m &gt; clock:
+        idle += m - clock
+        clock = m
+    tally[shelf] = tally.get(shelf, <span class="n">0</span>) + <span class="n">1</span>
+    clock += <span class="n">1</span>
+busiest = sorted(tally.items(), key=lambda kv: (-kv[<span class="n">1</span>], kv[<span class="n">0</span>]))[<span class="n">0</span>][<span class="n">0</span>]
+print(idle, busiest)</code></pre><p><strong>Expected:</strong> <code>total idle 3 minutes; busiest shelf A (tie with B, alphabetical)</code></p><p class='small'>Cost: O(k log k) for the sort, O(k) service; the presentation, not the code, is the exam.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Open-Day Planner: capstone under time pressure</h2><div class='case'><span class='tag'>cs-126</span><p>Six talks with (start, end, room-needed or None), rooms R1 R2. Fit every talk or report the minimal set to drop. Twenty minutes, method marks for the plan.</p></div><pre><code>talks = [(<span class="n">9</span>, <span class="n">10</span>), (<span class="n">9.5</span>, <span class="n">10.5</span>), (<span class="n">10</span>, <span class="n">11</span>), (<span class="n">10.5</span>, <span class="n">11.5</span>), (<span class="n">11</span>, <span class="n">12</span>), (<span class="n">11.5</span>, <span class="n">12.5</span>)]
+talks = sorted(talks, key=lambda t: t[<span class="n">1</span>])
+rooms = [<span class="n">0.0</span>, <span class="n">0.0</span>]
+placed, dropped = [], []
+<span class="k">for</span> idx, (s, e) <span class="k">in</span> enumerate(talks):
+    r = rooms.index(min(rooms))
+    <span class="k">if</span> rooms[r] &lt;= s:
+        rooms[r] = e
+        placed.append((s, e))
+    <span class="k">else</span>:
+        dropped.append((s, e))
+print(len(placed), len(dropped))</code></pre><p><strong>Expected:</strong> <code>all 6 talks placed; nothing dropped (with these arrivals)</code></p><p class='small'>Cost: O(n log n) sort + O(n x rooms) placement; the marks are in the plan write-up.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Data Clinic: capstone synthesis</h2><div class='case'><span class='tag'>cs-127</span><p>One messy table: missing cells, a duplicated row, one impossible value, and a mixed-case category. Clean it with an audit trail, then produce ONE honest summary sentence. All semester, one page.</p></div><pre><code>rows = [("Ada", "CS", <span class="n">80</span>), ("ada", "cs", <span class="n">80</span>), ("Bo", "DS", <span class="k">None</span>), ("Cy", "DS", <span class="n">150</span>)]
+seen, clean, log = set(), [], []
+<span class="k">for</span> name, cat, val <span class="k">in</span> rows:
+    key = (name.lower(), cat.lower(), val)
+    <span class="k">if</span> key <span class="k">in</span> seen:
+        log.append(f"duplicate {name}")
+        <span class="k">continue</span>
+    seen.add(key)
+    <span class="k">if</span> val is <span class="k">None</span>:
+        log.append(f"missing {name}")
+        <span class="k">continue</span>
+    <span class="k">if</span> <span class="k">not</span> <span class="n">0</span> &lt;= val &lt;= <span class="n">100</span>:
+        log.append(f"impossible {name}: {val}")
+        <span class="k">continue</span>
+    clean.append((name.title(), cat.upper(), val))
+print(clean, log)</code></pre><p><strong>Expected:</strong> <code>1 clean row; audit log: 1 duplicate, 1 missing, 1 impossible</code></p><p class='small'>Cost: O(n); the grade lives in what the log says, not what the loop costs.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 32</div><div class='case'><span class='tag'>Case cs-125 · Beginner</span><h2>The Library Robot</h2><p>A robot returns books to shelves minimising total walking, with a battery limit. Route planning meets knapsack-ish choice; full method: model, algorithm, tests.</p></div><ul><li><code>**Input:** shelves along a corridor at positions [1, 4, 7, 10]; returns pile [4, 10, 1]; robot starts at 2, battery 12 m</code></li><li><code>**Output:** greedy nearest-shelf route 2-&gt;4-&gt;7-&gt;10-&gt;1 = 2+3+3+9 = 17 &gt; 12 battery -&gt; infeasible; better order 2-&gt;1-&gt;4-&gt;7-&gt;10 = 1+3+3+3 = 10 &lt;= 12</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-125 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-125 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 32</div><div class='case'><span class='tag'>Case cs-126 · Foundational</span><h2>The Open-Day Planner</h2><p>Schedule taster talks from preferences and room limits to maximise satisfied visitors. Greedy with a tie-break rule, evaluated against a simulation of visitor happiness.</p></div><ul><li><code>**Input:** 3 talks x 2 slots, room cap 2; preferences: ada: [T1, T2], bo: [T2, T3], cy: [T1], dee: [T3, T1]</code></li><li><code>**Output:** assign visitors to (talk, slot) maximising first preferences subject to caps - enumerate: satisfied 3-4 of 4</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-126 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-126 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 32</div><div class='case'><span class='tag'>Case cs-127 · Intermediate</span><h2>The Data Clinic</h2><p>A messy departmental dataset end-to-end: profile, clean, summarise honestly, and answer three posed questions with stated limitations.</p></div><ul><li><code>**Input:** rows with missing hours, duplicate ids, one 25-hour day, mixed am/pm</code></li><li><code>**Output:** profile -&gt; clean (typed policies per defect) -&gt; honest summary (median, with N after cleaning) -&gt; 3 answers with limitations</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-127 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-127 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 32</div><div class='case'><span class='tag'>Case cs-128 · Advanced</span><h2>The 20-Minute Final</h2><p>Two unseen capstone problems under exam conditions, then a structured debrief mapping each step to the lecture that taught it. The course, walked backwards.</p></div><ul><li><code>**Input:** unseen problem A: balancing team sizes from skill scores; unseen problem B: minimum coins for a fee with odd denominations</code></li><li><code>**Output:** A: greedy by score with size cap, verified against brute force; B: DP (greedy fails for odd systems - lecture 23)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-128 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-128 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Starting to code at minute one instead of specifying first - the capstone penalises it explicitly.</li><li>Defending the plan with 'it should work' instead of named complexity and tests.</li><li>Treating verification as optional when time is short - it is scored.</li><li>Reading the post-mortem as blame; it is a checklist upgrade.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>The Whole Toolbox: Capstone Cases</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>What did the plan-first discipline buy you today?</li><li>Name two cases where two techniques had to combine.</li><li>What is your next technique to strengthen, and where will you practise it?</li></ol>
+<div class="notes">Expected answers (instructor): a defensible partial answer under a hard cap cs-125 (graphs + greedy), cs-127 (cleaning + statistics) student's own map from the retrospective</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L32 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

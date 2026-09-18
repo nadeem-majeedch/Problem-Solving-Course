@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 09 — Aggregation Patterns · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 09 — Aggregation Patterns</h1><h3>Learning objectives</h3><ul><li>Implement running totals, min/max, and counting loops</li><li>Combine aggregation with filtering</li><li>Initialise accumulators correctly</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-033</code>, <code>cs-142</code>, <code>cs-034</code>, <code>cs-035</code>, <code>cs-036</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Running total</strong> — a variable updated inside a loop so its final value summarises the whole sequence.</li><li><strong>Count</strong> — a running total restricted to items meeting a condition.</li><li><strong>Min / Max / Argmax</strong> — the smallest/largest value; argmax is the *position or key* of the maximum.</li><li><strong>Streak</strong> — the number of consecutive items meeting a condition; state resets on a miss.</li><li><strong>Window (k-slice)</strong> — the sum/aggregate of k consecutive items; the window slides one step at a time.</li><li><strong>Two-pass thinking</strong> — first compute an intermediate aggregate (e.g. total), then answer the real question from it.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The reading log: one pass, four aggregates</h2><div class='case'><span class='tag'>cs-033</span><p>Pages [12, 0, 25, 8, 30], target 10. Report total, average, best day, and how many days fell below target.</p></div><p><strong>Expected:</strong> <code>{'total': 75, 'avg': 15.0, 'best': 30, 'below': 2}</code></p><p class='small'>Cost: O(n) time, O(1) space - four aggregates for the price of one loop.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Stockroom spikes: argmax with witnesses</h2><div class='case'><span class='tag'>cs-034</span><p>Sales [100, 210, 205, 420, 90]. A day is a spike if it beats both neighbours. Reference answer: [1, 3].</p></div><p><strong>Expected:</strong> <code>[1, 3]</code></p><p class='small'>Cost: O(n) time, O(1) extra space (output excluded).</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The longest streak: reset vs stop</h2><div class='case'><span class='tag'>cs-035</span><p>Goals met [1, 1, 0, 1, 1, 1, 0, 1]. Longest streak of consecutive met goals - plus two zero cases: end-on-a-miss, and all-miss.</p></div><p><strong>Expected:</strong> <code>best 3 | end-current 0 in the reference's variant | all-miss 0</code></p><p class='small'>Cost: O(n) time, O(1) space - the two-variable discipline is the whole lesson.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Rainfall windows: the slide</h2><div class='case'><span class='tag'>cs-036</span><p>Rain [3, 5, 2, 8, 1, 4], window k = 3. The reference prints [5, 8, 8, 8] - derive what question it actually answers before trusting the prose.</p></div><pre><code>pages = [<span class="n">12</span>, <span class="n">0</span>, <span class="n">25</span>, <span class="n">8</span>, <span class="n">30</span>]
+target = <span class="n">10</span>
+total = sum(pages)
+best = max(pages)
+below = sum(<span class="n">1</span> <span class="k">for</span> p <span class="k">in</span> pages <span class="k">if</span> p &lt; target)
+print(total, total / len(pages), best, below)</code></pre><p><strong>Expected:</strong> <code>sums [10, 15, 11, 13]; maxima [5, 8, 8, 8] (the reference's question)</code></p><p class='small'>Cost: O(n) slide vs O(n*k) recomputed - the analysis teaser for Block III.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 09</div><div class='case'><span class='tag'>Case cs-033 · Beginner</span><h2>The Reading Log</h2><p>From a list of daily page counts, output total, average, best day, and days below target. The canonical running-total lecture case.</p></div><ul><li><code>**Input:** pages [12, 0, 25, 8, 30], target 10</code></li><li><code>**Output:** total 75, average 15.0, best 30, below-target days 3 (0, 8, and... recount: 0,8 yes; 12 no; careful)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-033 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which accumulator was hardest to get right, and what test would have caught the mistake?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-033 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 09</div><div class='case'><span class='tag'>Case cs-142 · Beginner</span><h2>The Tallied Vote</h2><p>Eleven committee members each wrote one name on a slip:</p></div><ul><li><code>**Input:** the eleven slips</code></li><li><code>**Output:** Zoe 4, Amir 3, Bea 2, Cal 2 — winner Zoe 36.4%,</code></li><li><code>runner-up Amir 27.3% — one honest sentence</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-142 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"The committee chair asks you to announce 'Zoe wins by a
+landslide.' Redraft the sentence so it stays true with the same
+numbers."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-142 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 09</div><div class='case'><span class='tag'>Case cs-034 · Foundational</span><h2>Stockroom Spikes</h2><p>Find days when sales exceeded double the previous day's sales. Combines aggregation with a 'look at the previous element' pattern.</p></div><ul><li><code>**Input:** sales [100, 210, 205, 420, 90]</code></li><li><code>**Output:** spike days: index 1 (210 &gt; 2x100) and index 3 (420 &gt; 2x205); not index 2 (205 &lt; 2x210)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-034 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where exactly would this solution break first if the input grew to a million items — and would anything break at all?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-034 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 09</div><div class='case'><span class='tag'>Case cs-035 · Intermediate</span><h2>The Longest Streak</h2><p>Count the longest run of consecutive goals met in a habit tracker. Two-level state: current streak vs best streak, and resetting correctly.</p></div><ul><li><code>**Input:** goals met: [1, 1, 0, 1, 1, 1, 0, 1]</code></li><li><code>**Output:** current best streak 3 (days 4-6); final streak at end is 1 - do not confuse the two</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-035 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which accumulator was hardest to get right, and what test would have caught the mistake?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-035 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 09</div><div class='case'><span class='tag'>Case cs-036 · Advanced</span><h2>Rainfall Windows</h2><p>For a window of the last k days, report the running maximum without re-summing the whole window each time. A gentle sliding-window preview.</p></div><ul><li><code>**Input:** rain [3, 5, 2, 8, 1, 4], window k = 3</code></li><li><code>**Output:** window maxima: 5, 8, 8, 8 (windows [3,5,2], [5,2,8], [2,8,1]... recheck: [2,8,1] -&gt; 8, [8,1,4] -&gt; 8)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-036 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where exactly would this solution break first if the input grew to a million items — and would anything break at all?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-036 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Recomputing totals inside the loop instead of maintaining them.</li><li>Forgetting to reset streak state after a miss.</li><li>Confusing max with argmax - the value versus its position.</li><li>Sliding windows by recomputing each sum from scratch and calling it 'fine'.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Aggregation Patterns</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>Name the aggregation pattern for 'which day had the most sales'.</li><li>Why reset streak state?</li><li>What is two-pass thinking and when does it pay?</li></ol>
+<div class="notes">Expected answers (instructor): argmax: track best-so-far value and its index/key a streak is consecutive; a miss must zero the counter, not stop it compute intermediate aggregates first, then answer; pays when one pass tangles state</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L09 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

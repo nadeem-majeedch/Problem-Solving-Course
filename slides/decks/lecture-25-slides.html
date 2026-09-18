@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 25 — Thinking with Data · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 25 — Thinking with Data</h1><h3>Learning objectives</h3><ul><li>Formulate questions a dataset can answer</li><li>Compute counts, shares, and distributions</li><li>Choose the right summary for a question</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-097</code>, <code>cs-098</code>, <code>cs-099</code>, <code>cs-139</code>, <code>cs-100</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Record</strong> — one row of a table: the values describing one entity (one student, one sale)</li><li><strong>Grouping</strong> — splitting records into buckets by a shared field before aggregating</li><li><strong>Aggregation</strong> — collapsing many values into one summary: total, average, maximum, count</li><li><strong>Rate vs count</strong> — a rate divides by its base (per person, per day); a count does not</li><li><strong>Pivot</strong> — a two-way grouping: rows for one field, columns for another, cells holding aggregates</li><li><strong>Denominator</strong> — the 'per what' of a rate; the first thing a reader must know</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Canteen Queue Log: from log to ledger</h2><div class='case'><span class='tag'>cs-097</span><p>Log lines like '0812 ada lunch 6.50', '0815 bo snack 2.00', '0809 ada lunch 4.00'. Build per-person totals and the busiest item - decide your cleaning rules first.</p></div><pre><code>lines = ["<span class="n">0812</span> ada lunch <span class="n">6.50</span>", "<span class="n">0815</span> bo snack <span class="n">2.00</span>", "<span class="n">0809</span> ada lunch <span class="n">4.00</span>"]
+totals, items = {}, {}
+<span class="k">for</span> ln <span class="k">in</span> lines:
+    _t, person, item, amt = ln.split()
+    totals[person] = totals.get(person, <span class="n">0.0</span>) + float(amt)
+    items[item] = items.get(item, <span class="n">0</span>) + <span class="n">1</span>
+busiest = sorted(items.items(), key=lambda kv: (-kv[<span class="n">1</span>], kv[<span class="n">0</span>]))[<span class="n">0</span>][<span class="n">0</span>]
+print(round(totals["ada"], <span class="n">2</span>), busiest)</code></pre><p><strong>Expected:</strong> <code>ada total 10.50; busiest item 'lunch' (2 visits)</code></p><p class='small'>Cost: O(n) for n log lines; the ranking is O(u log u) over distinct items.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Screen Time by Cohort: group, then compare honestly</h2><div class='case'><span class='tag'>cs-098</span><p>(cohort, minutes) pairs: (A, 120), (B, 90), (A, 180), (B, 110), (A, 60). Compare mean screen time per cohort - and state what the comparison cannot tell you.</p></div><pre><code>rows = [("A", <span class="n">120</span>), ("B", <span class="n">90</span>), ("A", <span class="n">180</span>), ("B", <span class="n">110</span>), ("A", <span class="n">60</span>)]
+groups = {}
+<span class="k">for</span> c, m <span class="k">in</span> rows:
+    groups.setdefault(c, []).append(m)
+<span class="k">for</span> c <span class="k">in</span> sorted(groups):
+    v = groups[c]
+    print(c, len(v), sum(v) / len(v))</code></pre><p><strong>Expected:</strong> <code>A: mean 120 (n=3); B: mean 100 (n=2)</code></p><p class='small'>Cost: O(n) grouping, O(g) reporting - trivial cost, the care is free but must be spent.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Churn Story: pivot and percentage, denominator stated</h2><div class='case'><span class='tag'>cs-099</span><p>Cohorts: A: 40 stayed, 10 left; B: 25 stayed, 25 left. Which cohort has the worse churn rate, and what exactly does the percentage measure?</p></div><pre><code>cohorts = {"A": (<span class="n">40</span>, <span class="n">10</span>), "B": (<span class="n">25</span>, <span class="n">25</span>)}
+<span class="k">for</span> c, (stayed, left) <span class="k">in</span> sorted(cohorts.items()):
+    total = stayed + left
+    print(c, f"{left / total:.<span class="n">0</span>%}", total)</code></pre><p><strong>Expected:</strong> <code>A 20% churn, B 50% churn (denominator: cohort members)</code></p><p class='small'>Cost: O(1) per cohort; the intellectual work is in the denominator, not the arithmetic.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 25</div><div class='case'><span class='tag'>Case cs-097 · Beginner</span><h2>The Canteen Queue Log</h2><p>From a queue-length log, answer: busiest hour, average wait proxy, quietest day. Framing questions before computing.</p></div><ul><li><code>**Input:** queue lengths by hour: 11:00-&gt;8, 12:00-&gt;22, 13:00-&gt;25, 14:00-&gt;6; week total 950 served</code></li><li><code>**Output:** busiest hour 13:00; 'average wait proxy' must be defined (e.g. queue/time) before computing; quietest day stated</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-097 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-097 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 25</div><div class='case'><span class='tag'>Case cs-098 · Foundational</span><h2>Screen Time by Cohort</h2><p>Compare app usage across three student cohorts with counts, shares, and a distribution sketch. Choosing summaries that answer the actual question.</p></div><ul><li><code>**Input:** cohort A app minutes [120, 90, 150]; cohort B [60, 45, 75]; cohort C [200, 180, 210, 190]</code></li><li><code>**Output:** A mean 120, B mean 60, C mean 195; shares of total usage differ from headcount shares</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-098 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-098 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 25</div><div class='case'><span class='tag'>Case cs-099 · Intermediate</span><h2>The Churn Story</h2><p>Monthly subscriber counts in and out. Define churn rate precisely (what's the base?), compute, and explain a month that 'looks bad but isn't'.</p></div><ul><li><code>**Input:** jan: 1000 start, 50 join, 40 leave, end 1010; feb: 1010 start, 60 leave</code></li><li><code>**Output:** jan churn 40/1000 = 4.0% (base = starting subscribers); feb 60/1010 ~ 5.9% - define the base first</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-099 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-099 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 25</div><div class='case'><span class='tag'>Case cs-139 · Intermediate</span><h2>The Attendance Frame</h2><p>The library reports: *"Weekday visits fell 20% the week after the
+deadline-week survey."* Two staff proposals:</p></div><ul><li><code>**Input:** the two weeks' visit counts and the holiday window</code></li><li><code>**Output:** totals 2600 vs 970 (−63%) — per open day 520 vs 485</code></li><li><code>(−6.7%) — verdict + policy rule</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-139 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Draft the one-line caveat that must accompany every weekly
+visits figure in the library's dashboard, whatever the frame."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-139 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 25</div><div class='case'><span class='tag'>Case cs-100 · Expert</span><h2>The Survey Skew</h2><p>A survey over-represents one hall of residence. Show how naive averages mislead, then reweight (or segment) to a fairer summary.</p></div><ul><li><code>**Input:** hall weights: north 500 students sampled 200, south 300 sampled 50, east 200 sampled 50; satisfaction yes-rates 0.6, 0.5, 0.7</code></li><li><code>**Output:** naive mean 0.6; weighted (by population) = (500*.6 + 300*.5 + 200*.7)/1000 = 0.59; segment-wise reporting also valid</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-100 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-100 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Reporting rates without denominators - '20%' of what population?</li><li>Averaging averages - groups of different sizes need weighting, not naive averaging.</li><li>Rounding during accumulation - round only at presentation.</li><li>Reading causation from a grouped comparison - the pivot shows association, never mechanism.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Thinking with Data</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>Why state the decision before the computation?</li><li>Why is the average alone dangerous in cs-098?</li><li>What made cs-100's survey skew?</li></ol>
+<div class="notes">Expected answers (instructor): the decision determines which aggregate is meaningful distributions with the same mean differ; skew hides in the shape voluntary response — collection bias, not analysis error</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L25 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

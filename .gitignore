@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+.freebuff
+node_modules/
+site/
+public_instructor/
+qa-report.md
+.DS_Store
+Thumbs.db
+*.log

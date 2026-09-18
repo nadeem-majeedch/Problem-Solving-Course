@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 10 — Strings Under the Lens · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 10 — Strings Under the Lens</h1><h3>Learning objectives</h3><ul><li>Index, slice, and walk strings safely</li><li>Classify characters and build derived strings</li><li>Reason about palindromes and reversal</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-037</code>, <code>cs-038</code>, <code>cs-039</code>, <code>cs-040</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>String</strong> — an immutable sequence of characters; every 'change' builds a new string.</li><li><strong>Indexing</strong> — s[0] is the first character; s[-1] the last; out-of-range is an error.</li><li><strong>Slicing</strong> — s[a:b] is characters a..b-1; the end is exclusive; s[::-1] reverses.</li><li><strong>Normalisation</strong> — putting strings into a canonical form (case, spacing, order) before comparison.</li><li><strong>Parsing</strong> — turning one structured string into pieces (split on separators, strip noise).</li><li><strong>Character class</strong> — a test like isdigit/isalpha/isspace applied per character.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Username auditor: classifier with one character of memory</h2><div class='case'><span class='tag'>cs-037</span><p>Usernames valid when: 5-16 chars, letters/digits/underscores only, not starting with a digit, no two consecutive underscores. Audit the batch.</p></div><p><strong>Expected:</strong> <code>pass | fail: consecutive underscores | fail: starts with letter check | fail: too short</code></p><p class='small'>Cost: O(length) with early exits; the design content is the rule ORDER.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The reversal family: three problems, one idea</h2><div class='case'><span class='tag'>cs-038</span><p>Reverse 'stressed' → 'desserts'; reverse words of 'the quick brown fox'; decide whether 'Never odd or even' is a palindrome.</p></div><p><strong>Expected:</strong> <code>desserts | fox brown quick the | True False</code></p><p class='small'>Cost: O(n) per operation; lecture 19 replaces slicing with two pointers for the palindrome.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Template mail-merge: parse, fill, report</h2><div class='case'><span class='tag'>cs-039</span><p>Template 'Dear {name}, your {item} is due {deadline}.' When 'item' is missing, print '[item]' visibly rather than crashing.</p></div><p><strong>Expected:</strong> <code>Dear Ada, your [item] is due Friday. | Dear Bo, your book is due Monday.</code></p><p class='small'>Cost: O(template + record); accumulate-then-join, not repeated concatenation.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The anagram detector: the normalisation ladder</h2><div class='case'><span class='tag'>cs-040</span><p>'Dormitory' / 'dirty room!'; 'astronomer' / 'moon starer'; 'hello' / 'world'. Reference: True, True, False.</p></div><pre><code><span class="k">for</span> name <span class="k">in</span> ("ab1", "abc"):
+    print(name, name[<span class="n">0</span>].isalpha() <span class="k">and</span> name[-<span class="n">1</span>].isdigit())</code></pre><p><strong>Expected:</strong> <code>True | True | False</code></p><p class='small'>Cost: O(n log n) via sorting; counting is O(n) - both honest, the ladder is the transferable part.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 10</div><div class='case'><span class='tag'>Case cs-037 · Beginner</span><h2>Username Auditor</h2><p>Check usernames against rules: length, allowed characters, no consecutive underscores. Walk characters and build verdicts.</p></div><ul><li><code>**Input:** "ada_2019" ok; "ada__love" fail (consecutive underscores); "9lives" fail; "ok" fail (short)</code></li><li><code>**Output:** verdicts as above; rules: 5-16 chars, letters/digits/underscore only, no consecutive underscores, must start with a letter</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-037 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Swap your example with a neighbour: does their edge case break your solution?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-037 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 10</div><div class='case'><span class='tag'>Case cs-038 · Foundational</span><h2>The Reversal Family</h2><p>Reverse a word, then a sentence word-by-word (not letter-by-letter), then decide if a phrase is a palindrome ignoring spaces and case.</p></div><ul><li><code>**Input:** "stressed" -&gt; "desserts"; "the quick brown fox"; "Never odd or even"</code></li><li><code>**Output:** desserts; fox brown quick the; palindrome (ignore case/spaces): yes</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-038 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which normalisation steps are safe to merge, and which change the answer if done in the wrong order?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-038 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 10</div><div class='case'><span class='tag'>Case cs-039 · Intermediate</span><h2>Template Mail-Merge</h2><p>Fill 'Dear {name}, ... {deadline} ...' templates from records, handling missing fields with a fallback. Splitting, joining, and safe replacement.</p></div><ul><li><code>**Input:** template "Dear {name}, your {item} is due {deadline}."; record missing "item"</code></li><li><code>**Output:** "Dear Ada, your [item] is due Friday." with a visible fallback marker</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-039 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Swap your example with a neighbour: does their edge case break your solution?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-039 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 10</div><div class='case'><span class='tag'>Case cs-040 · Advanced</span><h2>The Anagram Detector</h2><p>Decide if two phrases are anagrams ignoring case, spaces, and punctuation. Normalisation as the key idea; two implementation routes (sort vs count).</p></div><ul><li><code>**Input:** "Dormitory" / "dirty room!"; "astronomer" / "moon starer"; "hello" / "world"</code></li><li><code>**Output:** True, True, False - after normalising (lowercase, letters only)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-040 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which normalisation steps are safe to merge, and which change the answer if done in the wrong order?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-040 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Comparing strings before normalising case and spaces.</li><li>Trying to mutate strings in place - immutability surprise.</li><li>Off-by-one in slices: the end boundary is exclusive.</li><li>Parsing with hand-managed indexes when split/join states the intent.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Strings Under the Lens</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>Why normalise before comparing strings?</li><li>What does immutability of strings imply for building output?</li><li>When is slicing clearer than a loop?</li></ol>
+<div class="notes">Expected answers (instructor): so equal-meaning strings compare equal (case, spaces, order) each change builds a new string; accumulate in a list and join when the operation is positional (reverse, prefix, step) rather than conditional</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L10 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

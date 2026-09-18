@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 24 — Graphs as Models · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 24 — Graphs as Models</h1><h3>Learning objectives</h3><ul><li>Model problems as graphs (nodes, edges)</li><li>Represent graphs with adjacency lists</li><li>Perform breadth-first search and explain levels</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-093</code>, <code>cs-094</code>, <code>cs-095</code>, <code>cs-096</code>, <code>cs-136</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Graph</strong> — a set of entities (vertices) plus relationships (edges) between them</li><li><strong>Adjacency list</strong> — for each vertex, the list of its neighbours - the standard graph representation</li><li><strong>Breadth-first search</strong> — explore in rings: all distance-1 neighbours, then distance-2, and so on</li><li><strong>Connected component</strong> — a maximal group of vertices reachable from each other</li><li><strong>In-degree</strong> — the number of incoming edges - for prerequisites, how many requirements remain</li><li><strong>Topological order</strong> — an ordering where every edge points forward; a valid schedule of dependencies</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Friend Circle: adjacency list and BFS</h2><div class='case'><span class='tag'>cs-093</span><p>Students 1..6; friendships (1,2), (1,3), (4,5). How many separate friend circles, and how big is each?</p></div><pre><code><span class="k">from</span> collections <span class="k">import</span> deque
+
+pairs = [(<span class="n">1</span>, <span class="n">2</span>), (<span class="n">1</span>, <span class="n">3</span>), (<span class="n">4</span>, <span class="n">5</span>)]
+adj = {}
+<span class="k">for</span> u, v <span class="k">in</span> pairs:
+    adj.setdefault(u, []).append(v)
+    adj.setdefault(v, []).append(u)
+
+visited = set()
+sizes = []
+<span class="k">for</span> start <span class="k">in</span> range(<span class="n">1</span>, <span class="n">7</span>):
+    <span class="k">if</span> start <span class="k">in</span> visited:
+        <span class="k">continue</span>
+    frontier = deque([start])
+    visited.add(start)
+    size = <span class="n">0</span>
+    <span class="k">while</span> frontier:
+        u = frontier.popleft()
+        size += <span class="n">1</span>
+        <span class="k">for</span> w <span class="k">in</span> adj.get(u, []):
+            <span class="k">if</span> w <span class="k">not</span> <span class="k">in</span> visited:
+                visited.add(w)
+                frontier.append(w)
+    sizes.append(size)
+print(len(sizes), sorted(sizes))</code></pre><p><strong>Expected:</strong> <code>3 circles of sizes 3, 2, 1</code></p><p class='small'>Cost: O(V + E) - each vertex enqueued once, each edge scanned twice (undirected).</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Prerequisite Chain: topological order by peeling</h2><div class='case'><span class='tag'>cs-095</span><p>Courses a..e; prerequisites b&lt;a, c&lt;a, d&lt;b, e&lt;c. Order the courses so every prerequisite comes first.</p></div><pre><code>deps = {"a": ["b", "c"], "b": ["d"], "c": ["e"], "d": [], "e": []}
+indeg = {k: len(v) <span class="k">for</span> k, v <span class="k">in</span> deps.items()}
+queue = [k <span class="k">for</span> k, v <span class="k">in</span> indeg.items() <span class="k">if</span> v == <span class="n">0</span>]
+order = []
+<span class="k">while</span> queue:
+    c = queue.pop()
+    order.append(c)
+    <span class="k">for</span> k, v <span class="k">in</span> deps.items():
+        <span class="k">if</span> c <span class="k">in</span> v:
+            indeg[k] -= <span class="n">1</span>
+            <span class="k">if</span> indeg[k] == <span class="n">0</span>:
+                queue.append(k)
+print(sorted(order))</code></pre><p><strong>Expected:</strong> <code>a valid order exists: a, b, c, d, e (e.g. d, e, c, b, a)</code></p><p class='small'>Cost: O(V + E) with a real reverse-adjacency map (the demo re-scans deps for teaching clarity - worth flagging as the O(V*E) version).</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Epidemic Alarm: BFS measures time, not just reach</h2><div class='case'><span class='tag'>cs-096</span><p>Contacts spread infection per day: edges (1,2), (2,3), (2,4), (4,5). Infection starts at 1. On which day does each person fall ill?</p></div><pre><code><span class="k">from</span> collections <span class="k">import</span> deque
+
+edges = [(<span class="n">1</span>, <span class="n">2</span>), (<span class="n">2</span>, <span class="n">3</span>), (<span class="n">2</span>, <span class="n">4</span>), (<span class="n">4</span>, <span class="n">5</span>)]
+adj = {}
+<span class="k">for</span> u, v <span class="k">in</span> edges:
+    adj.setdefault(u, []).append(v)
+    adj.setdefault(v, []).append(u)
+
+dist = {<span class="n">1</span>: <span class="n">0</span>}
+q = deque([<span class="n">1</span>])
+<span class="k">while</span> q:
+    u = q.popleft()
+    <span class="k">for</span> w <span class="k">in</span> adj.get(u, []):
+        <span class="k">if</span> w <span class="k">not</span> <span class="k">in</span> dist:
+            dist[w] = dist[u] + <span class="n">1</span>
+            q.append(w)
+print([dist.get(p) <span class="k">for</span> p <span class="k">in</span> range(<span class="n">1</span>, <span class="n">6</span>)])</code></pre><p><strong>Expected:</strong> <code>infection days: person 1:0, 2:1, 3:2, 4:2, 5:3</code></p><p class='small'>Cost: O(V + E); the day count equals the BFS layer, computed with no extra work.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 24</div><div class='case'><span class='tag'>Case cs-093 · Beginner</span><h2>The Friend Circle</h2><p>Model friendships as a graph; find the size of someone's circle of direct and indirect friends. Modelling first, traversal second.</p></div><ul><li><code>**Input:** friends: ada-bo, bo-cy, cy-dee, dee-ada, bo-dee (5 edges among 4); ego network of ada</code></li><li><code>**Output:** ada's circle: everyone (size 4) - connected graph; in general: BFS from the person</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-093 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where does the algorithm report 'unreachable', and what should the user see?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-093 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 24</div><div class='case'><span class='tag'>Case cs-094 · Foundational</span><h2>The Campus Walk</h2><p>Fewest corridors between two rooms. Breadth-first search on a small grid/campus map; levels as distances.</p></div><ul><li><code>**Input:** grid campus: S at (0,0), T at (2,2); corridors right/down/up; wall at (1,1)</code></li><li><code>**Output:** shortest walk 4 steps (e.g. down, right, down, right) - BFS levels are distances</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-094 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Re-model the same situation with different nodes: what question does the new graph answer?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-094 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 24</div><div class='case'><span class='tag'>Case cs-095 · Intermediate</span><h2>The Prerequisite Chain</h2><p>Order courses so prerequisites come first (topological sort). Detect cycles as 'impossible semester plans'.</p></div><ul><li><code>**Input:** prereqs: CS2 needs CS1; DS2 needs CS1 and Stats; AI needs CS2 and DS2</code></li><li><code>**Output:** order: CS1, Stats, CS2, DS2, AI (or CS1, CS2, Stats, DS2, AI); cycle -&gt; impossible</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-095 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where does the algorithm report 'unreachable', and what should the user see?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-095 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 24</div><div class='case'><span class='tag'>Case cs-096 · Advanced</span><h2>The Epidemic Alarm</h2><p>Rumour spreads in a social graph each hour from a set of starters; when does everyone know it? Multi-source BFS as simulation; ties to Lecture 29.</p></div><ul><li><code>**Input:** starters {ada}; edges 1 hour each; graph of 6 friends</code></li><li><code>**Output:** time until everyone knows = max BFS level over all reachable; disconnected -&gt; 'never' for some</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-096 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Re-model the same situation with different nodes: what question does the new graph answer?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-096 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 24</div><div class='case'><span class='tag'>Case cs-136 · Advanced</span><h2>The Timetable Collision</h2><p>Four study groups — G1, G2, G3, G4 — must book presentation slots. Some
+pairs share members and cannot present in the same slot:</p></div><ul><li><code>**Input:** the five conflict pairs</code></li><li><code>**Output:** minimum 3 slots — e.g. slot 1: G1, G4; slot 2: G2;</code></li><li><code>slot 3: G3 — plus the lower-bound argument</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-136 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"A fifth group G5 arrives, conflicting only with G1. Does the
+minimum stay at 3? Give the timetable or the new lower bound."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-136 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Modelling one-way prerequisites as undirected edges - direction is the content.</li><li>Believing BFS and DFS give different components or distances - the flood differs, the answers do not (unweighted).</li><li>Forgetting that disconnected vertices exist - the outer loop must visit every start, not walk edges only.</li><li>Treating a topological-order failure as a bug - a cycle is a legitimate answer: 'requirements are contradictory'.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Graphs as Models</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>What is a node in the campus model, and why?</li><li>What does BFS level number mean?</li><li>When is there no valid ordering in cs-095?</li></ol>
+<div class="notes">Expected answers (instructor): junctions/rooms — decisions and meetings happen there minimum number of steps from the source exactly when the prerequisite graph has a cycle</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L24 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

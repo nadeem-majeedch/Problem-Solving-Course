@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 17 — Searching and Linear Scans · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 17 — Searching and Linear Scans</h1><h3>Learning objectives</h3><ul><li>Implement and reason about linear search</li><li>State preconditions for search correctness</li><li>Return useful 'not found' information</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-065</code>, <code>cs-066</code>, <code>cs-067</code>, <code>cs-068</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Linear scan</strong> — visit items one by one until the target or the end; O(n) always, but works on ANY sequence.</li><li><strong>Early exit</strong> — stop scanning the moment the answer is known - found it, or proved nothing ahead can match.</li><li><strong>Sentinel value</strong> — a reserved answer (-1, None) meaning 'not found'; must be impossible to confuse with a real result.</li><li><strong>Filter</strong> — a scan that collects all matches instead of the first - the accumulator list applied to search.</li><li><strong>Precondition</strong> — a promise about the input (e.g. 'sorted', 'two runs') that a faster method may rely on.</li><li><strong>Best/worst case</strong> — the same algorithm has a cost range; the target's position decides which you get.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Find the First Freeze: scan with early exit</h2><div class='case'><span class='tag'>cs-065</span><p>Daily temperatures are 12, 8, 3, -1, -4, 2 degrees. On which day index does the first freeze (temperature at or below 0) occur?</p></div><pre><code>temps = [<span class="n">12</span>, <span class="n">8</span>, <span class="n">3</span>, -<span class="n">1</span>, -<span class="n">4</span>, <span class="n">2</span>]
+idx = <span class="k">None</span>
+<span class="k">for</span> i, t <span class="k">in</span> enumerate(temps):
+    <span class="k">if</span> t &lt;= <span class="n">0</span>:
+        idx = i
+        <span class="k">break</span>
+print(idx, temps[idx])</code></pre><p><strong>Expected:</strong> <code>first freeze at index 3 (temperature -1)</code></p><p class='small'>Cost: O(n) worst case, but best case O(1) when the freeze is early; early exit is free - take it.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Course Finder: linear search on an unsorted catalogue</h2><div class='case'><span class='tag'>cs-066</span><p>A catalogue holds (code, title) pairs in no particular order. Find the title for code 'DS2', and define the behaviour for an unknown code.</p></div><pre><code>catalogue = [("CS1", "Problem Solving"), ("DS2", "Statistics"), ("CS3", "Systems")]
+
+<span class="k">def</span> find(code):
+    <span class="k">for</span> c, title <span class="k">in</span> catalogue:
+        <span class="k">if</span> c == code:
+            <span class="k">return</span> title
+    <span class="k">return</span> "<span class="k">not</span> offered"
+
+print(find("DS2"), find("XX9"))</code></pre><p><strong>Expected:</strong> <code>Statistics / not offered</code></p><p class='small'>Cost: O(n) time, O(1) space; already optimal for unsorted input.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Peak Finding: the first descent marks a peak</h2><div class='case'><span class='tag'>cs-068</span><p>In the values 1, 3, 8, 4, 2 find a peak - a value at least as large as its neighbours.</p></div><pre><code>a = [<span class="n">1</span>, <span class="n">3</span>, <span class="n">8</span>, <span class="n">4</span>, <span class="n">2</span>]
+peak = <span class="k">None</span>
+<span class="k">for</span> i <span class="k">in</span> range(len(a) - <span class="n">1</span>):
+    <span class="k">if</span> a[i] &gt;= a[i + <span class="n">1</span>]:
+        peak = i
+        <span class="k">break</span>
+<span class="k">if</span> peak is <span class="k">None</span>:
+    peak = len(a) - <span class="n">1</span>
+print(a[peak])</code></pre><p><strong>Expected:</strong> <code>a peak is 8 (at index 2)</code></p><p class='small'>Cost: O(n) here; lecture 21 revisits this problem with binary search for O(log n) - a first taste of the same problem having algorithms of different cost.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 17</div><div class='case'><span class='tag'>Case cs-065 · Beginner</span><h2>Find the First Freeze</h2><p>Given daily temperatures, find the first day below freezing, or report none. Linear scan with an early exit and a correct 'not found' result.</p></div><ul><li><code>**Input:** temps [4, 2, 1, -1, 3], freeze below 0</code></li><li><code>**Output:** first freeze on day 4 (index 3); none -&gt; report -1 explicitly</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-065 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which boundary test would you keep if you could keep only one?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-065 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 17</div><div class='case'><span class='tag'>Case cs-066 · Foundational</span><h2>The Course Finder</h2><p>Find all courses taught in a room with capacity at least X and free on Tuesdays. Filtering as a search with a compound predicate.</p></div><ul><li><code>**Input:** courses [(CS1, room 40, cap 30, Tue), (DS1, room 12, cap 60, Wed), (AI, room 41, cap 45, Tue)], cap &gt;= 40, free Tue</code></li><li><code>**Output:** [DS1? no - Wed] -&gt; matches: AI only (room cap 45, Tue); DS1 has cap but wrong day</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-066 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"If this scan ran 10,000 times a day, what would you precompute?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-066 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 17</div><div class='case'><span class='tag'>Case cs-067 · Intermediate</span><h2>Two Sorted Halves</h2><p>A list is two sorted runs concatenated. Find the smallest element. Shows how preconditions (knowing structure) change the algorithm.</p></div><ul><li><code>**Input:** [7, 9, 11, 2, 4, 6] (two sorted runs); minimum is 2</code></li><li><code>**Output:** 2 at the run boundary; a plain min() scan works always - the structure allows better</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-067 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which boundary test would you keep if you could keep only one?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-067 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 17</div><div class='case'><span class='tag'>Case cs-068 · Expert</span><h2>Peak Finding</h2><p>Find a local maximum in a list (greater than its neighbours). Comparing neighbours safely at the edges; why 'a peak exists' needs an argument.</p></div><ul><li><code>**Input:** [1, 3, 4, 3, 1] -&gt; peak at index 2 (value 4); edge peaks: [5,2] peak at 0; [2,5] peak at 1</code></li><li><code>**Output:** returns any one local maximum index; a peak always exists (argument: climb uphill from anywhere)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-068 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"If this scan ran 10,000 times a day, what would you precompute?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-068 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Returning the loop index 0 as 'not found' - zero is a legitimate position; use None or -1 by spec.</li><li>Breaking early without justification on multi-match scans.</li><li>Assuming linear scan is 'the dumb way' - on unsorted data it is the ONLY way.</li><li>Confusing best case with typical case when reasoning about cost.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Searching and Linear Scans</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>Cost of a full scan vs early exit, in words.</li><li>What precondition made cs-067 fast?</li><li>Name one search where early exit is wrong.</li></ol>
+<div class="notes">Expected answers (instructor): always n touches vs stops at the first match; existence searches often exit early the two halves are each sorted — structure enables strategy counting all matches; you must see every item</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L17 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

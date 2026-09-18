@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 13 — Dictionaries and Sets · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 13 — Dictionaries and Sets</h1><h3>Learning objectives</h3><ul><li>Model lookups as key-value mappings</li><li>Use sets for uniqueness and membership</li><li>Count with dictionaries idiomatically</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-049</code>, <code>cs-050</code>, <code>cs-051</code>, <code>cs-132</code>, <code>cs-052</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Dictionary</strong> — a collection of key -&gt; value pairs; you look things up by key, not by position</li><li><strong>Key uniqueness</strong> — each key appears at most once; assigning to an existing key overwrites its value</li><li><strong>Set</strong> — an unordered collection with no duplicates; membership tests are fast</li><li><strong>Set operations</strong> — union (in either), intersection (in both), difference (in one but not the other)</li><li><strong>Membership test</strong> — asking 'is x present?' - the `in` operator, O(1) average on dict/set</li><li><strong>Accumulator pattern</strong> — initialise a structure before a loop and grow it inside the loop</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The word tally: dictionary as counter</h2><div class='case'><span class='tag'>cs-049</span><p>Count how often each word occurs in "the cat the dog the bird cat", then name the most frequent word.</p></div><pre><code>words = "the cat the dog the bird cat".split()
+tally = {}
+<span class="k">for</span> w <span class="k">in</span> words:
+    tally[w] = tally.get(w, <span class="n">0</span>) + <span class="n">1</span>
+best = max(tally, key=tally.get)
+print(tally["the"], tally["cat"])
+print(best, tally[best])</code></pre><p><strong>Expected:</strong> <code>{'the': 3, 'cat': 2, 'dog': 1, 'bird': 1} and the (count 3)</code></p><p class='small'>Cost: O(n) time for n words, O(u) space for u distinct words - one pass, no nesting.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Course rosters: set operations as questions</h2><div class='case'><span class='tag'>cs-050</span><p>CS = {ada, bo, cy}; DS = {bo, dee, ada}. Who takes both? Either? Only CS? Only DS?</p></div><pre><code>CS = {"ada", "bo", "cy"}
+DS = {"bo", "dee", "ada"}
+print(sorted(CS &amp; DS))
+print(sorted(CS | DS))
+print(sorted(CS - DS))
+print(sorted(DS - CS))</code></pre><p><strong>Expected:</strong> <code>both {ada, bo}; either {ada, bo, cy, dee}; only CS {cy}; only DS {dee}</code></p><p class='small'>Cost: Set operations are O(min(len)) on average; building sets is O(n).</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The LRU cache: recency as a moving queue</h2><div class='case'><span class='tag'>cs-051</span><p>Capacity 2. Operations: put a, put b, get a, put c. Which entries survive, and which is evicted next?</p></div><pre><code>order = []
+<span class="k">def</span> use(k):
+    <span class="k">if</span> k <span class="k">in</span> order:
+        order.remove(k)
+    order.insert(<span class="n">0</span>, k)
+<span class="k">for</span> op, k <span class="k">in</span> [("put","a"),("put","b"),("get","a"),("put","c")]:
+    use(k)
+    <span class="k">if</span> op == "put" <span class="k">and</span> len(order) &gt; <span class="n">2</span>:
+        order.pop()
+print(order)
+use("d")
+order.pop()
+print(order)</code></pre><p><strong>Expected:</strong> <code>after put c: {a, c} (b evicted); next eviction: a</code></p><p class='small'>Cost: O(capacity) per operation with a list; real caches use a hash map plus linked list for O(1).</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 13</div><div class='case'><span class='tag'>Case cs-049 · Beginner</span><h2>The Word Tally</h2><p>Count word frequencies in a paragraph and report the top three. The gateway dictionary-counting case, with tie-breaking discussion.</p></div><ul><li><code>**Input:** "the cat the dog the bird cat"</code></li><li><code>**Output:** the:3, cat:2, dog:1, bird:1 -&gt; top three: the(3), cat(2), then dog and bird tie at 1 (tie-break: alphabetical)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-049 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Re-derive the tie-break rule: is it a technicality or part of the specification?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-049 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 13</div><div class='case'><span class='tag'>Case cs-050 · Foundational</span><h2>Course Rosters</h2><p>Given two course rosters, output students in both, either, and only one. Set operations as direct vocabulary.</p></div><ul><li><code>**Input:** CS = {ada, bo, cy}; DS = {bo, dee, ada}</code></li><li><code>**Output:** both: {ada, bo}; either: {ada, bo, cy, dee}; only CS: {cy}; only DS: {dee}</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-050 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"What breaks if two different real-world things map to the same key — and how would you detect it?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-050 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 13</div><div class='case'><span class='tag'>Case cs-051 · Intermediate</span><h2>The Cache Simulator</h2><p>Simulate a tiny key-value cache with a size limit: inserting evicts the least-recently-used. Order plus dictionary state; eviction policy reasoning.</p></div><ul><li><code>**Input:** capacity 2; operations: put a, put b, get a, put c (evicts b)</code></li><li><code>**Output:** after put c: {a, c}; LRU order a (recent), c; then put d evicts a</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-051 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Re-derive the tie-break rule: is it a technicality or part of the specification?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-051 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 13</div><div class='case'><span class='tag'>Case cs-132 · Intermediate</span><h2>The Silent Roster</h2><p>The club attendance app shows **"0 attended"** for last week's session.
+There were definitely people in the room. The session lead wants to email
+everyone who "missed" it — tonight.</p></div><ul><li><code>**Input:** the export column list; the session lead's request</code></li><li><code>**Output:** three interpretations with their required columns, one</code></li><li><code>clarifying question, one safe email opening line</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-132 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"The app team answers: 'the device was offline for that
+session, but the door log has everyone.' Does that settle it? What do
+you now owe the session lead before the email goes out?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-132 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 13</div><div class='case'><span class='tag'>Case cs-052 · Expert</span><h2>The Consensus Checker</h2><p>Given ballots ranking three options, compute pairwise preferences and detect whether a majority prefers A over B and B over C while C beats A overall (a cycle). Fairness emerges from data.</p></div><ul><li><code>**Input:** 3 ballots: A&gt;B&gt;C, B&gt;C&gt;A, C&gt;A&gt;B</code></li><li><code>**Output:** A beats B 2-1; B beats C 2-1; C beats A 2-1 - a Condorcet cycle: no majority winner</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-052 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"What breaks if two different real-world things map to the same key — and how would you detect it?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-052 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>'A dictionary is just a fancy list' - it answers different questions: lookup by key, not position.</li><li>Assuming keys are sorted or ordered by insertion in every language - only some languages guarantee it.</li><li>Using `dict[key]` to read a possibly-missing key - use `get` or `in` first; crashes are not policies.</li><li>Confusing set union with list concatenation - union deduplicates, concatenation does not.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Dictionaries and Sets</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>When do you choose a dictionary over a list?</li><li>What single operation do sets make O(1)-ish and lists O(n)?</li><li>Restate the consensus rule of cs-052 precisely.</li></ol>
+<div class="notes">Expected answers (instructor): when lookup is by meaningful key, not position membership testing (in) a decision passes only when agreement count meets the quorum threshold</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L13 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

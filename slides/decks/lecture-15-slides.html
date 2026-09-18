@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 15 — Counting, Combinatorics, and Choice · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 15 — Counting, Combinatorics, and Choice</h1><h3>Learning objectives</h3><ul><li>Apply the multiplication and addition principles</li><li>Compute combinations and permutations from first principles</li><li>Justify over-counting corrections</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-057</code>, <code>cs-058</code>, <code>cs-133</code>, <code>cs-059</code>, <code>cs-060</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Factorial</strong> — n! = n x (n-1) x ... x 1; the number of ways to arrange n items in order</li><li><strong>Permutation</strong> — an ordered selection; order matters, so AB and BA are different</li><li><strong>Combination</strong> — an unordered selection; order does not matter, so AB and BA are the same</li><li><strong>Complement counting</strong> — count the opposite of what you want, then subtract from the total</li><li><strong>Pigeonhole principle</strong> — if more than n items go into n boxes, some box holds two</li><li><strong>Binomial coefficient</strong> — C(n, k) = n! / (k! (n-k)!); the number of k-sized teams from n people</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The locker problem: divisors leave squares open</h2><div class='case'><span class='tag'>cs-057</span><p>100 lockers, 100 students; student i toggles every i-th locker. Which lockers end open?</p></div><pre><code>open_lockers = [<span class="k">False</span>] * <span class="n">101</span>
+<span class="k">for</span> student <span class="k">in</span> range(<span class="n">1</span>, <span class="n">101</span>):
+    <span class="k">for</span> locker <span class="k">in</span> range(student, <span class="n">101</span>, student):
+        open_lockers[locker] = <span class="k">not</span> open_lockers[locker]
+squares = [n <span class="k">for</span> n <span class="k">in</span> range(<span class="n">1</span>, <span class="n">101</span>) <span class="k">if</span> open_lockers[n]]
+print(squares[:<span class="n">5</span>], squares[-<span class="n">1</span>], len(squares))</code></pre><p><strong>Expected:</strong> <code>open lockers: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100</code></p><p class='small'>Cost: Simulation O(n log n) (harmonic sum); the mathematical answer is O(1) - reasoning beats brute force.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Team photo: count first, then block</h2><div class='case'><span class='tag'>cs-058</span><p>5 students line up for a photo; P and Q refuse to stand together. How many acceptable lineups?</p></div><pre><code><span class="k">import</span> math
+total = math.factorial(<span class="n">5</span>)
+blocked = math.factorial(<span class="n">4</span>) * <span class="n">2</span>
+print(total, blocked, total - blocked)</code></pre><p><strong>Expected:</strong> <code>72</code></p><p class='small'>Cost: O(1) with the counting argument; enumerating 120 lineups is fine too but does not scale.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The committee draw: complements and stars</h2><div class='case'><span class='tag'>cs-059</span><p>A committee of 4 from 6 CS and 4 DS students. How many committees include at least one of each programme?</p></div><pre><code><span class="k">import</span> math
+c = math.comb
+total = c(<span class="n">10</span>, <span class="n">4</span>)
+forbidden = c(<span class="n">6</span>, <span class="n">4</span>) + c(<span class="n">4</span>, <span class="n">4</span>)
+print(total, forbidden, total - forbidden)</code></pre><p><strong>Expected:</strong> <code>194</code></p><p class='small'>Cost: O(1) arithmetic via factorials; a brute-force enumeration would touch all 210 committees.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The birthday question: product of complements</h2><div class='case'><span class='tag'>cs-060</span><p>How many people are needed for a shared-birthday chance above 50%, assuming 365 equally likely days and no leap days?</p></div><pre><code>p = <span class="n">1.0</span>
+n = <span class="n">0</span>
+<span class="k">while</span> p &gt;= <span class="n">0.5</span>:
+    n += <span class="n">1</span>
+    p *= (<span class="n">366</span> - n) / <span class="n">365</span>
+print(n, round(<span class="n">1</span> - p, <span class="n">3</span>))</code></pre><p><strong>Expected:</strong> <code>23 people (P(shared) ~ 50.7%)</code></p><p class='small'>Cost: O(answer) for the product, O(trials x n) for the simulation - both trivial here.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 15</div><div class='case'><span class='tag'>Case cs-057 · Beginner</span><h2>The Locker Problem</h2><p>100 lockers, 100 students, student i toggles every i-th locker. Which remain open? Counting by reasoning, then verify with a tiny simulation.</p></div><ul><li><code>**Input:** 100 lockers, 100 students; student i toggles lockers divisible by i</code></li><li><code>**Output:** open lockers are perfect squares: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-057 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"When is enumeration a legitimate answer rather than a crutch?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-057 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 15</div><div class='case'><span class='tag'>Case cs-058 · Foundational</span><h2>Team Photo Lineups</h2><p>Count lineups of 5 students where two specific students refuse to stand together. Inclusion-exclusion in plain language first.</p></div><ul><li><code>**Input:** 5 students; students P and Q refuse to stand together</code></li><li><code>**Output:** 5! = 120; together (block): 4! x 2 = 48; apart: 120 - 48 = 72</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-058 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where exactly did the wrong counts double-count — point at the pair."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-058 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 15</div><div class='case'><span class='tag'>Case cs-133 · Foundational</span><h2>The Late Bus Ledger</h2><p>The university shuttle poster says: **"a bus every ten minutes."** The
+operational facts:</p></div><ul><li><code>**Input:** the schedule, loop legs, fleet size</code></li><li><code>**Output:** `departures 0, 10, 25, 35, 50, 60` — gaps `10, 15, 10, 15,</code></li><li><code>10` — verdict + notice</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-133 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Operations proposes shortening the loop by three minutes
+instead of buying a third bus. Does the poster claim become true?
+Show the departure ledger that decides it."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-133 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 15</div><div class='case'><span class='tag'>Case cs-059 · Intermediate</span><h2>The Committee Draw</h2><p>From 6 CS and 4 DS students, a 4-person committee must include at least one of each programme. Count compositions; then compute the probability a random draw satisfies it.</p></div><ul><li><code>**Input:** 6 CS, 4 DS; committee of 4 with at least one of each programme</code></li><li><code>**Output:** total C(10,4)=210; all-CS C(6,4)=15; all-DS C(4,4)=1; valid 210-16 = 194</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-059 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"When is enumeration a legitimate answer rather than a crutch?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-059 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 15</div><div class='case'><span class='tag'>Case cs-060 · Advanced</span><h2>The Birthday Question</h2><p>How many students until two likely share a birthday? Derive the complement product, compute thresholds, and confirm by simulation. The classic that teaches complement thinking.</p></div><ul><li><code>**Input:** n people, 365 equally likely birthdays (ignore leap days)</code></li><li><code>**Output:** P(no shared) = 365/365 x 364/365 x ... ; n=23 gives P(shared) ~ 50.7%</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-060 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where exactly did the wrong counts double-count — point at the pair."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-060 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Multiplying when you should add: 'and' stages multiply, 'or' cases add.</li><li>C(10,4) computed as 10x9x8x7 - the order of a chosen team was counted 4! times.</li><li>Applying complement counting with overlapping cases - subtraction needs disjoint sets.</li><li>Believing the pigeonhole principle needs large numbers - 3 socks, 2 colours is already enough.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Counting, Combinatorics, and Choice</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>When is the complement trick the right tool?</li><li>Permutations vs combinations in one phrase each.</li><li>How does simulation back up counting?</li></ol>
+<div class="notes">Expected answers (instructor): when counting the desired set directly is tangled but its opposite is simple order matters / order does not many random trials approximate the counted probability</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L15 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

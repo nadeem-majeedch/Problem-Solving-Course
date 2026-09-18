@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 12 — Debugging Lab: Real Defects · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 12 — Debugging Lab: Real Defects</h1><h3>Learning objectives</h3><ul><li>Localise defects in multi-step programs</li><li>Use prints, asserts, and bisection to find faults</li><li>Fix defects without introducing new ones</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-045</code>, <code>cs-046</code>, <code>cs-129</code>, <code>cs-047</code>, <code>cs-130</code>, <code>cs-048</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Regression</strong> — old behaviour breaking again after a change; caught by regression tests.</li><li><strong>Sentinel value</strong> — a magic input (0, -1, empty) used to mean 'stop' - collides with real data.</li><li><strong>Default argument</strong> — a parameter's pre-set value; a *mutable* default is created once and shared across calls.</li><li><strong>Scope defect</strong> — a variable visible where it should not be (counter defined outside a function).</li><li><strong>History bisect</strong> — finding the change that introduced a defect by testing the middle of the change history, repeatedly.</li><li><strong>Deletion loop</strong> — removing items while iterating the same list - skips neighbours; iterate over a copy instead.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The median that lies</h2><div class='case'><span class='tag'>cs-045</span><p>A statistics function returns the wrong median for even-length input (right for odd). Diagnose; decide the empty case.</p></div><p><strong>Expected:</strong> <code>3 for odd; 2.5 for even; empty: define or reject</code></p><p class='small'>Cost: O(n log n); selection algorithms (lecture 18's kth-element) do better - a teaser.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The phantom zero</h2><div class='case'><span class='tag'>cs-046</span><p>Readings [0, 5, 0, 7] with 'stop reading at 0'. The reference prints [] (eaten) vs [0, 5, 0, 7] (kept).</p></div><p><strong>Expected:</strong> <code>[] (broken) vs [0, 5, 0, 7] (fixed)</code></p><p class='small'>Cost: O(n) either way; the content is contract design.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The swap that wasn't</h2><div class='case'><span class='tag'>cs-047</span><p>Tuple-assignment swaps inside a loop that also reassigns indices: the reference prints [3, 2, 3] - one element duplicated, one lost. Diagnose with a memory diagram.</p></div><p><strong>Expected:</strong> <code>[3, 2, 3] (buggy) vs the intended swap after the fix</code></p><p class='small'>Cost: Constant; binding-order reasoning returns in cs-048 and cs-055.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The regression zoo: three defects, one protocol</h2><div class='case'><span class='tag'>cs-048</span><p>Snippets: (a) counter defined outside a function, (b) shared default list, (c) range(len(xs)) deletion loop. Reference: crash 'list index out of range'; fixed [1, 5] and [1, 2] [1, 2].</p></div><pre><code><span class="k">def</span> median(xs):
+    s = sorted(xs)
+    n = len(s)
+    mid = n // <span class="n">2</span>
+    <span class="k">if</span> n % <span class="n">2</span> == <span class="n">1</span>:
+        <span class="k">return</span> s[mid]
+    <span class="k">return</span> (s[mid - <span class="n">1</span>] + s[mid]) / <span class="n">2</span>
+
+print(median([<span class="n">3</span>, <span class="n">1</span>, <span class="n">2</span>]), median([<span class="n">4</span>, <span class="n">1</span>, <span class="n">3</span>, <span class="n">2</span>]))</code></pre><p><strong>Expected:</strong> <code>buggy crashed: list index out of range | fixed: [1, 5] and [1, 2] [1, 2]</code></p><p class='small'>Cost: All O(n); three defect classes in one hour, each fixed under the full protocol.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 12</div><div class='case'><span class='tag'>Case cs-045 · Beginner</span><h2>The Median That Lies</h2><p>A median function returns wrong values for even-length lists. Localise, fix, and add regression tests so it never regresses.</p></div><ul><li><code>**Input:** [1, 3, 2] -&gt; 2 ok (odd length, middle element); [1, 2, 3, 4] -&gt; buggy returns 3, correct is 2.5</code></li><li><code>**Output:** bug: takes the element at index len//2 even for even lengths; fix: average the two middle elements</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-045 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Write the one-line commit message that explains the mechanism, not the symptom."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-045 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 12</div><div class='case'><span class='tag'>Case cs-046 · Foundational</span><h2>The Phantom Zero</h2><p>A sentinel value of 0 corrupts statistics for legitimate zeros in the data. Diagnose the sentinel choice and redesign the loop's exit.</p></div><ul><li><code>**Input:** readings [0, 5, 0, 7] with sentinel 0 termination</code></li><li><code>**Output:** sentinel stops at first 0: stats over [] or [partial]; real zeros miscounted - fix: read count first, then iterate</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-046 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which hypothesis did you rank first, and what evidence moved it down the list?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-046 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 12</div><div class='case'><span class='tag'>Case cs-129 · Foundational</span><h2>The Missing Marks</h2><p>The exams office exports this file, `marks.csv`, exactly as written:</p></div><ul><li><code>**Input:** the six-row table above, the office policy as given</code></li><li><code>**Output:** `included 3, absent 2, recheck 1, mean 72.3`</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-129 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"The office now sends a file where one mark is `72,0` — same
+row, two values. Where in your classification does this break, and what
+do you ask the office before touching the data?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-129 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 12</div><div class='case'><span class='tag'>Case cs-047 · Intermediate</span><h2>The Swap That Wasn't</h2><p>An attempted in-place swap of list elements fails silently for one ordering. Trace it, find why, and enumerate every ordering in a test.</p></div><ul><li><code>**Input:** swap a[i], a[j] via tuple assignment inside a loop that also reassigns indices</code></li><li><code>**Output:** swap works syntactically; the defect is the index update order - enumerate all orderings in tests</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-047 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Write the one-line commit message that explains the mechanism, not the symptom."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-047 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 12</div><div class='case'><span class='tag'>Case cs-130 · Intermediate</span><h2>The Duplicate Rows</h2><p>Two registration exports must describe the same class of students.</p></div><ul><li><code>**Input:** the two exports above</code></li><li><code>**Output:** `unique students: 6` — plus the duplicate id(s) removed, the</code></li><li><code>flagged id(s) with reasons, and the escalated ambiguity</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-130 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Next month a third export arrives with no ids at all — name
+and programme only. Which of your rules survives, and which must be
+redesigned?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-130 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 12</div><div class='case'><span class='tag'>Case cs-048 · Advanced</span><h2>The Regression Zoo</h2><p>Three small programs, each with a distinct classic defect class (scope, mutation, boundary). Localise all three under a time budget, then rank difficulty.</p></div><ul><li><code>**Input:** three snippets: (a) counter defined outside a function, (b) shared default list, (c) range(len(xs)) deletion loop</code></li><li><code>**Output:** (a) scope defect; (b) persistent-state defect; (c) skip-after-remove defect</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-048 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which hypothesis did you rank first, and what evidence moved it down the list?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-048 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Debugging from the bug report alone, without reproducing.</li><li>Bisecting history before isolating a reproducible input.</li><li>Fixing without first writing the failing test.</li><li>Declaring victory because one test passes now.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Debugging Lab: Real Defects</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>Why must the reproduction step precede any hypothesis?</li><li>What does 'fix without breaking green tests' require?</li><li>Name the isolation technique used on cs-048.</li></ol>
+<div class="notes">Expected answers (instructor): an unreproduced defect cannot be falsified; you would be guessing a regression suite run before and after every change history bisect: halve the commit range each experiment</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L12 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

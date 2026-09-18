@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 01 — Thinking in Problems · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 01 — Thinking in Problems</h1><h3>Learning objectives</h3><ul><li>Decompose a messy requirement into precise subproblems</li><li>State assumptions and constraints before solving</li><li>Choose between alternative interpretations of a task</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-001</code>, <code>cs-002</code>, <code>cs-003</code>, <code>cs-004</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Problem</strong> — a goal plus obstacles: what is wanted, and what stands between the given information and that goal.</li><li><strong>Specification</strong> — a restatement of a problem so that two careful readers would produce the same answer for every input.</li><li><strong>Input</strong> — the information a solution is allowed to use. Everything not listed as input does not exist.</li><li><strong>Output</strong> — the exact form of the answer required (a number, a decision, a list) - agreed before solving.</li><li><strong>Constraint</strong> — a limit the solution must respect (time, memory, money, legal rules).</li><li><strong>Assumption</strong> — a statement you accept without proof to make the problem solvable; always written down.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The coffee card, modelled honestly</h2><div class='case'><span class='tag'>cs-001</span><p>A cafe card gives every 10th drink free (buy 9, the 10th costs nothing). Price 3.50 per paid drink; the student wants 22 drinks this month. What do they pay?</p></div><p><strong>Expected:</strong> <code>(20, 2, 70.0)</code></p><p class='small'>Cost: O(wanted) time, O(1) space; a closed form (paid = wanted - wanted // 10) exists and is worth deriving as a check.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The elevator: movement vs stops</h2><div class='case'><span class='tag'>cs-002</span><p>An elevator serves requests in press order: [3, 7, 3, 1, 5]. 3 s per floor moved, 6 s per stop (including the first). Total time?</p></div><p><strong>Expected:</strong> <code>72</code></p><p class='small'>Cost: O(n) time for n requests; the *optimisation* of ordering is a different (harder) problem, previewed in Block III.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Which vending machine? Writing the rules</h2><div class='case'><span class='tag'>cs-003</span><p>Machine A sells at 2.00, exact coins only. Machine B sells at 2.30 and gives change. The student holds specific coins. Write decision rules covering exact match, overpay possible, overpay impossible, and B sold out.</p></div><p><strong>Expected:</strong> <code>machine B / machine A / no purchase (per the three traces)</code></p><p class='small'>Cost: Constant time; the difficulty is specification completeness, not cost.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The library fine, one ambiguity at a time</h2><div class='case'><span class='tag'>cs-004</span><p>Fines: 0.50/day for days 1-7, 1.00/day for days 8-30, cap 10.00. Returned on day 5, day 12, day 40 - and on the due date itself?</p></div><pre><code>wanted = <span class="n">22</span>
+price = <span class="n">3.50</span>
+paid = wanted - wanted // <span class="n">10</span>
+free = wanted // <span class="n">10</span>
+print(paid, free, paid * price)</code></pre><p><strong>Expected:</strong> <code>2.50; 8.50 (our reading); 10.00; due-date return 0.00</code></p><p class='small'>Cost: Constant time. The pedagogical content is the two contested readings, not the arithmetic.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 01</div><div class='case'><span class='tag'>Case cs-001 · Beginner</span><h2>The Coffee Card</h2><p>A cafe loyalty card: buy 9 drinks, get 1 free. Given the price of a drink and how many drinks a student wants over a month, how much will they actually pay? Must decide what happens when a free drink is 'earned' mid-month.</p></div><ul><li><code>**Input:** price 3.50 per drink; the student wants 22 drinks this month</code></li><li><code>**Output:** 20 paid drinks, total 70.00 (2 free drinks earned: the 10th and the 20th drink)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-001 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-001 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 01</div><div class='case'><span class='tag'>Case cs-002 · Foundational</span><h2>The Elevator Debate</h2><p>An office elevator stops at every requested floor in the order buttons were pressed. Decide the total travel time for a list of floor requests, then debate a better ordering policy.</p></div><ul><li><code>**Input:** floors requested in press order: [3, 7, 3, 1, 5]; 3 s per floor move; 6 s per stop</code></li><li><code>**Output:** travel 3-&gt;7-&gt;3-&gt;1-&gt;5 moves 14 floors = 42 s; stops 5 = 30 s; total 72 s</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-002 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-002 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 01</div><div class='case'><span class='tag'>Case cs-003 · Intermediate</span><h2>Two Vending Machines</h2><p>Two machines sell the same drink for different prices; one accepts exact coins only, the other gives change. Write precise rules for which machine a student should use given the coins they hold.</p></div><ul><li><code>**Input:** drink 2.00; student holds coins 2.00 exactly vs drink 2.30 with coins 2.50 (needs change)</code></li><li><code>**Output:** exact-coin machine when coins match a price; change machine otherwise; never the exact machine if it means overpaying</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-003 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-003 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 01</div><div class='case'><span class='tag'>Case cs-004 · Expert</span><h2>The Library Fine Formula</h2><p>A library charges fines with a tiered rule (per day, capped, and waived under conditions). Turn a vague policy into an exact formula, including what happens on the return day itself.</p></div><ul><li><code>**Input:** 0.50/day for days 1-7, 1.00/day for days 8-30, cap 10.00; returned on day 5, on day 12, on day 40</code></li><li><code>**Output:** 2.50; 7.00 (5 charged days: 7+5x1.00); 10.00 (capped); same-day return 0.00</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-004 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-004 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Reading the problem once and starting to write - the spec phase is the solution.</li><li>Treating assumptions as facts: 'of course returns include the due date' - says who?</li><li>Confusing an example with a definition (one worked instance does not define the rule).</li><li>Choosing a model silently, then defending the arithmetic instead of the model.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Thinking in Problems</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>State the four questions you must answer before attempting any case.</li><li>Give one example of two defensible readings of the same rule.</li><li>Why is the five-minute attempt not wasted time?</li></ol>
+<div class="notes">Expected answers (instructor): inputs, outputs, constraints, assumptions (edge cases named from them) e.g. 'every 6th drink free' — counting only paid drinks vs all drinks it generates the class's own attempts, making the reveal answer a question already asked</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L01 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

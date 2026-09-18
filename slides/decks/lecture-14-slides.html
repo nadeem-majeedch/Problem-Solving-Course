@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 14 — Functions and Reuse · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 14 — Functions and Reuse</h1><h3>Learning objectives</h3><ul><li>Decompose programs into single-purpose functions</li><li>Distinguish parameters from arguments, return from print</li><li>Reason about scope and pass-by-object-reference</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-053</code>, <code>cs-054</code>, <code>cs-138</code>, <code>cs-055</code>, <code>cs-056</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Function</strong> — a named, parameterised piece of computation with one job and (ideally) one return type.</li><li><strong>Parameter</strong> — a placeholder named in the definition; the argument fills it at call time.</li><li><strong>Return value</strong> — the single object handed back to the caller; a function without return yields None.</li><li><strong>Contract</strong> — what a function needs from its inputs and promises about its output, written in one sentence (its docstring).</li><li><strong>Refactoring</strong> — restructuring code without changing behaviour - verified by running the same tests before and after.</li><li><strong>Pure helper</strong> — a function that computes and returns, printing nothing - the building block of testable pipelines.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The validator trio: three contracts, one driver</h2><div class='case'><span class='tag'>cs-053</span><p>Write three independent checks - email-ish, phone-ish, student-ID - and a driver that prints a verdict table for sample values.</p></div><pre><code><span class="k">def</span> looks_like_email(s):
+    <span class="k">return</span> s.count("@") == <span class="n">1</span> <span class="k">and</span> "." <span class="k">in</span> s.split("@")[<span class="n">1</span>]
+
+<span class="k">def</span> looks_like_phone(s):
+    digits = s.replace(" ", "")
+    <span class="k">return</span> digits.isdigit() <span class="k">and</span> len(digits) <span class="k">in</span> (<span class="n">10</span>, <span class="n">11</span>)
+
+<span class="k">def</span> looks_like_id(s):
+    <span class="k">return</span> len(s) &gt;= <span class="n">2</span> <span class="k">and</span> s[<span class="n">0</span>].isalpha() <span class="k">and</span> s[<span class="n">1</span>:].isdigit()
+
+<span class="k">for</span> v <span class="k">in</span> ["ada@uni.edu", "<span class="n">07123</span> <span class="n">456789</span>", "S2023/<span class="n">4471</span>"]:
+    print(v, looks_like_email(v), looks_like_phone(v), looks_like_id(v))</code></pre><p><strong>Expected:</strong> <code>three verdict columns for the three sample values</code></p><p class='small'>Cost: Each check O(len(s)); the trio demonstrates decomposition, not performance.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Refactor the monolith: same output, new shape</h2><div class='case'><span class='tag'>cs-054</span><p>One script parses 'name,course,score' lines, drops blanks, averages per student, prints a report. Refactor it into functions without changing behaviour.</p></div><pre><code><span class="k">def</span> parse_line(line):
+    parts = [p.strip() <span class="k">for</span> p <span class="k">in</span> line.split(",")]
+    <span class="k">if</span> len(parts) != <span class="n">3</span> <span class="k">or</span> <span class="k">not</span> parts[<span class="n">2</span>]:
+        <span class="k">return</span> <span class="k">None</span>
+    <span class="k">return</span> parts[<span class="n">0</span>], parts[<span class="n">1</span>], float(parts[<span class="n">2</span>])
+
+<span class="k">def</span> averages(rows):
+    acc = {}
+    <span class="k">for</span> name, _course, score <span class="k">in</span> rows:
+        acc.setdefault(name, []).append(score)
+    <span class="k">return</span> {k: sum(v) / len(v) <span class="k">for</span> k, v <span class="k">in</span> acc.items()}
+
+lines = ["ada,CS1,<span class="n">80</span>", "bo,DS1,", "ada,CS1,<span class="n">95</span>"]
+rows = [r <span class="k">for</span> r <span class="k">in</span> (parse_line(l) <span class="k">for</span> l <span class="k">in</span> lines) <span class="k">if</span> r]
+avg = averages(rows)
+print(round(avg["ada"], <span class="n">1</span>), len(rows))</code></pre><p><strong>Expected:</strong> <code>averages: ada 87.5 (bo flagged, not silently dropped)</code></p><p class='small'>Cost: Unchanged O(n) - refactoring changes shape, not cost.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The parameter jungle: the mutable default</h2><div class='case'><span class='tag'>cs-055</span><p>def add_tag(tag, tags=[]): called three times accumulates instead of starting fresh. Explain, then fix.</p></div><pre><code><span class="k">def</span> add_tag(tag, tags=<span class="k">None</span>):
+    <span class="k">if</span> tags is <span class="k">None</span>:
+        tags = []
+    tags.append(tag)
+    <span class="k">return</span> tags
+
+a = add_tag("x")
+b = add_tag("y")
+print(a, b, a is b)</code></pre><p><strong>Expected:</strong> <code>buggy: calls accumulate in one shared list; fixed: each call gets its own list</code></p><p class='small'>Cost: No performance argument either way - this is a semantics lesson.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Pipelines as functions: clean, tokenise, count</h2><div class='case'><span class='tag'>cs-056</span><p>Turn '  the CAT, the dog!  ' into a word count. Build it as three small functions composed in a pipeline.</p></div><pre><code><span class="k">def</span> clean(s):
+    <span class="k">return</span> " ".join(s.split())
+
+<span class="k">def</span> tokenise(s):
+    <span class="k">return</span> s.split(" ")
+
+<span class="k">def</span> count(words):
+    d = {}
+    <span class="k">for</span> w <span class="k">in</span> words:
+        d[w] = d.get(w, <span class="n">0</span>) + <span class="n">1</span>
+    <span class="k">return</span> d
+
+text = "  the CAT, the dog!  "
+words = tokenise(clean(text))
+tally = count(words)
+print(words)
+print(tally["the"] == <span class="n">2</span>, tally.get("CAT,"))</code></pre><p><strong>Expected:</strong> <code>the:2, CAT,:1, dog!:1 (punctuation shows why cleaning rules matter)</code></p><p class='small'>Cost: O(n) total; the pipeline adds no cost, only clarity.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 14</div><div class='case'><span class='tag'>Case cs-053 · Beginner</span><h2>The Validator Trio</h2><p>Three validation checks (email-ish, phone-ish, id format) become three functions plus a driver. Naming, single purpose, return vs print.</p></div><ul><li><code>**Input:** values: "ada@uni.edu" (ok-ish), "07123 456789", "S2023/4471"</code></li><li><code>**Output:** three independent verdict functions + a driver printing a table</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-053 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where would this decomposition crack if the input format changed?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-053 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 14</div><div class='case'><span class='tag'>Case cs-054 · Foundational</span><h2>Refactor the Monolith</h2><p>One 40-line script computes grade statistics. Decompose it into functions without changing behaviour, then defend the boundaries chosen.</p></div><ul><li><code>**Input:** one script: parse score lines, drop missing, average per student, print report</code></li><li><code>**Output:** functions parse_line, averages, format_report - behaviour unchanged; test by identical output</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-054 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which cut line would you move, and what argument justifies the boundary?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-054 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 14</div><div class='case'><span class='tag'>Case cs-138 · Foundational</span><h2>The Downtime Ledger</h2><p>The IT helpdesk logged last week's outages, one line per incident:</p></div><ul><li><code>**Input:** the eight-row incident log</code></li><li><code>**Output:** per-system minutes (W1 90 raw vs 80 merged, W2 80, DB</code></li><li><code>55) — cause table — one flagged system — one logging question</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-138 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Management asks for 'uptime' as a percentage. What extra
+number do you need beyond this log, and what denominator trap must you
+avoid?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-138 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 14</div><div class='case'><span class='tag'>Case cs-055 · Intermediate</span><h2>The Parameter Jungle</h2><p>A function with a mutable default argument accumulates state across calls. Diagnose, fix, and generalise the lesson to API design.</p></div><ul><li><code>**Input:** def add_tag(tag, tags=[]): called three times</code></li><li><code>**Output:** the default list persists: calls accumulate; fix: None sentinel + fresh list</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-055 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where would this decomposition crack if the input format changed?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-055 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 14</div><div class='case'><span class='tag'>Case cs-056 · Expert</span><h2>Pipelines as Functions</h2><p>Build a text pipeline (clean, tokenise, count, report) where each stage is a function returning the next stage's input. Composition and contracts.</p></div><ul><li><code>**Input:** text '  the CAT, the dog!  '</code></li><li><code>**Output:** clean -&gt; 'the CAT, the dog!'; tokenise -&gt; ['the','CAT','the','dog']; count -&gt; the:2, dog:1, cat:1</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-056 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which cut line would you move, and what argument justifies the boundary?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-056 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Functions that print instead of return - untestable and uncomposable.</li><li>One function doing parse + compute + print - the monolith, admired as 'efficient'.</li><li>Passing and then mutating the argument when the caller needed the original intact.</li><li>Contracts written after the code, if at all - the contract is the design.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Functions and Reuse</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>What makes a function name good?</li><li>Why are mutable defaults dangerous?</li><li>What does 'refactor without behaviour change' demand?</li></ol>
+<div class="notes">Expected answers (instructor): it states the subproblem's contract: verb + object, no surprises the default object is created once and shared across calls the same tests pass before and after, unchanged</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L14 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

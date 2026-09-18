@@ -1,0 +1,947 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1172" height="662" viewBox="0 0 1172 662" role="img" aria-labelledby="hm-title hm-desc">
+<title id="hm-title">Topic coverage across the 32 lectures</title>
+<desc id="hm-desc">Heatmap of 144 case studies: one row per canonical topic, one column per lecture. Cell colour deepens with the number of cases; the letter in a cell is the dominant difficulty tier (B beginner, F foundational, I intermediate, A advanced, E expert). Full numbers are in the companion CSV.</desc>
+<rect width="100%" height="100%" fill="white"/>
+<text x="196" y="24" font-size="15" font-weight="bold" fill="#1f2937">Topic coverage across the 32 lectures — 144 case studies</text>
+<text x="211.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 211.0 56)">01</text>
+<text x="241.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 241.0 56)">02</text>
+<text x="271.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 271.0 56)">03</text>
+<text x="301.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 301.0 56)">04</text>
+<text x="331.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 331.0 56)">05</text>
+<text x="361.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 361.0 56)">06</text>
+<text x="391.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 391.0 56)">07</text>
+<text x="421.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 421.0 56)">08</text>
+<text x="451.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 451.0 56)">09</text>
+<text x="481.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 481.0 56)">10</text>
+<text x="511.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 511.0 56)">11</text>
+<text x="541.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 541.0 56)">12</text>
+<text x="571.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 571.0 56)">13</text>
+<text x="601.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 601.0 56)">14</text>
+<text x="631.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 631.0 56)">15</text>
+<text x="661.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 661.0 56)">16</text>
+<text x="691.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 691.0 56)">17</text>
+<text x="721.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 721.0 56)">18</text>
+<text x="751.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 751.0 56)">19</text>
+<text x="781.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 781.0 56)">20</text>
+<text x="811.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 811.0 56)">21</text>
+<text x="841.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 841.0 56)">22</text>
+<text x="871.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 871.0 56)">23</text>
+<text x="901.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 901.0 56)">24</text>
+<text x="931.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 931.0 56)">25</text>
+<text x="961.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 961.0 56)">26</text>
+<text x="991.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 991.0 56)">27</text>
+<text x="1021.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 1021.0 56)">28</text>
+<text x="1051.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 1051.0 56)">29</text>
+<text x="1081.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 1081.0 56)">30</text>
+<text x="1111.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 1111.0 56)">31</text>
+<text x="1141.0" y="56" font-size="10" fill="#4b5563" text-anchor="start" transform="rotate(-45 1141.0 56)">32</text>
+<text x="188" y="73.0" font-size="11" fill="#1f2937" text-anchor="end">Problem formulation</text>
+<text x="188" y="85.0" font-size="11" fill="#1f2937" text-anchor="end">&amp; requirements</text>
+<rect x="196" y="64" width="29" height="21" fill="#6aa5e0" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 01: 3 case(s) — Beginner 1, Intermediate 1, Expert 1</title></rect>
+<text x="210.5" y="78.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="226" y="64" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 02: 2 case(s) — Intermediate 1, Expert 1</title></rect>
+<text x="240.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="256" y="64" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 03: 2 case(s) — Foundational 1, Intermediate 1</title></rect>
+<text x="270.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="286" y="64" width="29" height="21" fill="#6aa5e0" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 04: 3 case(s) — Beginner 1, Intermediate 1, Advanced 1</title></rect>
+<text x="300.5" y="78.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="316" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="64" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 07: 2 case(s) — Foundational 1, Intermediate 1</title></rect>
+<text x="390.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="406" y="64" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 08: 2 case(s) — Beginner 1, Foundational 1</title></rect>
+<text x="420.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="436" y="64" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 09: 2 case(s) — Beginner 1, Intermediate 1</title></rect>
+<text x="450.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="466" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="64" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 12: 2 case(s) — Foundational 2</title></rect>
+<text x="540.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="556" y="64" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 13: 2 case(s) — Intermediate 2</title></rect>
+<text x="570.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="586" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="64" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 15: 2 case(s) — Foundational 2</title></rect>
+<text x="630.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="646" y="64" width="29" height="21" fill="#1f5fae" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 16: 5 case(s) — Beginner 1, Foundational 2, Intermediate 1, Advanced 1</title></rect>
+<text x="660.5" y="78.5" font-size="10" fill="#ffffff" text-anchor="middle">F</text>
+<rect x="676" y="64" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 17: 1 case(s) — Intermediate 1</title></rect>
+<text x="690.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="706" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="64" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 19: 1 case(s) — Foundational 1</title></rect>
+<text x="750.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="766" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="64" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 21: 1 case(s) — Foundational 1</title></rect>
+<text x="810.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="826" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="64" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 23: 1 case(s) — Intermediate 1</title></rect>
+<text x="870.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="886" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="64" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 25: 1 case(s) — Intermediate 1</title></rect>
+<text x="930.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="946" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="64" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 27: 1 case(s) — Foundational 1</title></rect>
+<text x="990.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="1006" y="64" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 28: 1 case(s) — Expert 1</title></rect>
+<text x="1020.5" y="78.5" font-size="10" fill="#1f2937" text-anchor="middle">E</text>
+<rect x="1036" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="64" width="29" height="21" fill="#6aa5e0" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 30: 3 case(s) — Beginner 1, Foundational 1, Intermediate 1</title></rect>
+<text x="1080.5" y="78.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="1096" y="64" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="64" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Problem formulation &amp; requirements — lecture 32: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="1140.5" y="78.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<text x="188" y="95.0" font-size="11" fill="#1f2937" text-anchor="end">Decomposition</text>
+<text x="188" y="107.0" font-size="11" fill="#1f2937" text-anchor="end">&amp; abstraction</text>
+<rect x="196" y="86" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 01: 2 case(s) — Beginner 1, Foundational 1</title></rect>
+<text x="210.5" y="100.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="226" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="86" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 16: 1 case(s) — Intermediate 1</title></rect>
+<text x="660.5" y="100.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="676" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="86" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 24: 1 case(s) — Beginner 1</title></rect>
+<text x="900.5" y="100.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="916" y="86" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 25: 1 case(s) — Expert 1</title></rect>
+<text x="930.5" y="100.5" font-size="10" fill="#1f2937" text-anchor="middle">E</text>
+<rect x="946" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="86" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 28: 1 case(s) — Advanced 1</title></rect>
+<text x="1020.5" y="100.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="1036" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="86" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Decomposition &amp; abstraction — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="123.0" font-size="11" fill="#1f2937" text-anchor="end">Patterns &amp; sequences</text>
+<rect x="196" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="108" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 04: 2 case(s) — Foundational 1, Advanced 1</title></rect>
+<text x="300.5" y="122.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="316" y="108" width="29" height="21" fill="#6aa5e0" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 05: 3 case(s) — Beginner 1, Foundational 1, Intermediate 1</title></rect>
+<text x="330.5" y="122.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="346" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="108" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 09: 1 case(s) — Advanced 1</title></rect>
+<text x="450.5" y="122.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="466" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="108" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 11: 1 case(s) — Intermediate 1</title></rect>
+<text x="510.5" y="122.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="526" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="108" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 15: 1 case(s) — Beginner 1</title></rect>
+<text x="630.5" y="122.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="646" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="108" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 19: 1 case(s) — Advanced 1</title></rect>
+<text x="750.5" y="122.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="766" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="108" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 27: 1 case(s) — Advanced 1</title></rect>
+<text x="990.5" y="122.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="1006" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="108" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Patterns &amp; sequences — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="145.0" font-size="11" fill="#1f2937" text-anchor="end">Loops &amp; iteration</text>
+<rect x="196" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="130" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 03: 2 case(s) — Beginner 1, Intermediate 1</title></rect>
+<text x="270.5" y="144.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="286" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="130" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 05: 1 case(s) — Foundational 1</title></rect>
+<text x="330.5" y="144.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="346" y="130" width="29" height="21" fill="#6aa5e0" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 06: 3 case(s) — Beginner 1, Foundational 1, Intermediate 1</title></rect>
+<text x="360.5" y="144.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="376" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="130" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 09: 1 case(s) — Beginner 1</title></rect>
+<text x="450.5" y="144.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="466" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="130" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 19: 1 case(s) — Advanced 1</title></rect>
+<text x="750.5" y="144.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="766" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="130" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Loops &amp; iteration — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="167.0" font-size="11" fill="#1f2937" text-anchor="end">Conditionals &amp; decisions</text>
+<rect x="196" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="152" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 03: 2 case(s) — Foundational 1, Advanced 1</title></rect>
+<text x="270.5" y="166.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="286" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="152" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 13: 1 case(s) — Expert 1</title></rect>
+<text x="570.5" y="166.5" font-size="10" fill="#1f2937" text-anchor="middle">E</text>
+<rect x="586" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="152" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Conditionals &amp; decisions — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="189.0" font-size="11" fill="#1f2937" text-anchor="end">Pseudocode &amp; flowcharts</text>
+<rect x="196" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="174" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 02: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Expert 1</title></rect>
+<text x="240.5" y="188.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="256" y="174" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 03: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="270.5" y="188.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="286" y="174" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 04: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="300.5" y="188.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="316" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="174" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Pseudocode &amp; flowcharts — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="211.0" font-size="11" fill="#1f2937" text-anchor="end">Functions &amp; modular design</text>
+<rect x="196" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="196" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 14: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Expert 1</title></rect>
+<text x="600.5" y="210.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="616" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="196" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Functions &amp; modular design — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="233.0" font-size="11" fill="#1f2937" text-anchor="end">Arrays &amp; lists</text>
+<rect x="196" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="218" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 10: 1 case(s) — Foundational 1</title></rect>
+<text x="480.5" y="232.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="496" y="218" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 11: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="510.5" y="232.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="526" y="218" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 12: 1 case(s) — Intermediate 1</title></rect>
+<text x="540.5" y="232.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="556" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="218" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 16: 1 case(s) — Beginner 1</title></rect>
+<text x="660.5" y="232.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="676" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="218" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Arrays &amp; lists — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="255.0" font-size="11" fill="#1f2937" text-anchor="end">Strings &amp; text</text>
+<rect x="196" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="240" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 10: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="480.5" y="254.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="496" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="240" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 12: 1 case(s) — Intermediate 1</title></rect>
+<text x="540.5" y="254.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="556" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="240" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 16: 1 case(s) — Foundational 1</title></rect>
+<text x="660.5" y="254.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="676" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="240" width="29" height="21" fill="#6aa5e0" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 27: 3 case(s) — Beginner 1, Foundational 1, Intermediate 1</title></rect>
+<text x="990.5" y="254.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="1006" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="240" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="240" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Strings &amp; text — lecture 32: 1 case(s) — Intermediate 1</title></rect>
+<text x="1140.5" y="254.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<text x="188" y="277.0" font-size="11" fill="#1f2937" text-anchor="end">Dictionaries &amp; sets</text>
+<rect x="196" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="262" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 13: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Expert 1</title></rect>
+<text x="570.5" y="276.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="586" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="262" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 16: 1 case(s) — Beginner 1</title></rect>
+<text x="660.5" y="276.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="676" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="262" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 18: 1 case(s) — Beginner 1</title></rect>
+<text x="720.5" y="276.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="736" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="262" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 29: 1 case(s) — Foundational 1</title></rect>
+<text x="1050.5" y="276.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="1066" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="262" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dictionaries &amp; sets — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="293.0" font-size="11" fill="#1f2937" text-anchor="end">Searching</text>
+<text x="188" y="305.0" font-size="11" fill="#1f2937" text-anchor="end">(linear &amp; binary)</text>
+<rect x="196" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="284" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 17: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Expert 1</title></rect>
+<text x="690.5" y="298.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="706" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="284" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 20: 1 case(s) — Beginner 1</title></rect>
+<text x="780.5" y="298.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="796" y="284" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 21: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Expert 1</title></rect>
+<text x="810.5" y="298.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="826" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="284" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 30: 1 case(s) — Expert 1</title></rect>
+<text x="1080.5" y="298.5" font-size="10" fill="#1f2937" text-anchor="middle">E</text>
+<rect x="1096" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="284" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Searching (linear &amp; binary) — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="321.0" font-size="11" fill="#1f2937" text-anchor="end">Sorting</text>
+<rect x="196" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="306" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 02: 1 case(s) — Beginner 1</title></rect>
+<text x="240.5" y="320.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="256" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="306" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 09: 1 case(s) — Foundational 1</title></rect>
+<text x="450.5" y="320.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="466" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="306" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 18: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Expert 1</title></rect>
+<text x="720.5" y="320.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="736" y="306" width="29" height="21" fill="#6aa5e0" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 19: 3 case(s) — Beginner 1, Foundational 1, Advanced 1</title></rect>
+<text x="750.5" y="320.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="766" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="306" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Sorting — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="337.0" font-size="11" fill="#1f2937" text-anchor="end">Recursion &amp;</text>
+<text x="188" y="349.0" font-size="11" fill="#1f2937" text-anchor="end">divide-and-conquer</text>
+<rect x="196" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="328" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 05: 1 case(s) — Advanced 1</title></rect>
+<text x="330.5" y="342.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="346" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="328" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 22: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Expert 1</title></rect>
+<text x="840.5" y="342.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="856" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="328" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 28: 1 case(s) — Foundational 1</title></rect>
+<text x="1020.5" y="342.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="1036" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="328" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Recursion &amp; divide-and-conquer — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="365.0" font-size="11" fill="#1f2937" text-anchor="end">Invariants &amp; correctness</text>
+<rect x="196" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="350" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 06: 1 case(s) — Advanced 1</title></rect>
+<text x="360.5" y="364.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="376" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="350" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 11: 1 case(s) — Foundational 1</title></rect>
+<text x="510.5" y="364.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="526" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="350" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 19: 2 case(s) — Beginner 1, Intermediate 1</title></rect>
+<text x="750.5" y="364.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="766" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="350" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 23: 2 case(s) — Beginner 1, Foundational 1</title></rect>
+<text x="870.5" y="364.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="886" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="350" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Invariants &amp; correctness — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="387.0" font-size="11" fill="#1f2937" text-anchor="end">Greedy &amp; optimization</text>
+<rect x="196" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="372" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 15: 1 case(s) — Foundational 1</title></rect>
+<text x="630.5" y="386.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="646" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="372" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 20: 1 case(s) — Advanced 1</title></rect>
+<text x="780.5" y="386.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="796" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="372" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 23: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="870.5" y="386.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="886" y="372" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 24: 1 case(s) — Advanced 1</title></rect>
+<text x="900.5" y="386.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="916" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="372" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 30: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Expert 1</title></rect>
+<text x="1080.5" y="386.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="1096" y="372" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="372" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Greedy &amp; optimization — lecture 32: 2 case(s) — Beginner 1, Foundational 1</title></rect>
+<text x="1140.5" y="386.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<text x="188" y="409.0" font-size="11" fill="#1f2937" text-anchor="end">Dynamic programming</text>
+<rect x="196" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="394" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 22: 1 case(s) — Expert 1</title></rect>
+<text x="840.5" y="408.5" font-size="10" fill="#1f2937" text-anchor="middle">E</text>
+<rect x="856" y="394" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 23: 2 case(s) — Intermediate 1, Advanced 1</title></rect>
+<text x="870.5" y="408.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="886" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="394" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Dynamic programming — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="431.0" font-size="11" fill="#1f2937" text-anchor="end">Graphs &amp; networks</text>
+<rect x="196" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="416" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 12: 1 case(s) — Intermediate 1</title></rect>
+<text x="540.5" y="430.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="556" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="416" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 17: 1 case(s) — Expert 1</title></rect>
+<text x="690.5" y="430.5" font-size="10" fill="#1f2937" text-anchor="middle">E</text>
+<rect x="706" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="416" width="29" height="21" fill="#1f5fae" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 24: 5 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 2</title></rect>
+<text x="900.5" y="430.5" font-size="10" fill="#ffffff" text-anchor="middle">A</text>
+<rect x="916" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="416" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 27: 1 case(s) — Intermediate 1</title></rect>
+<text x="990.5" y="430.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="1006" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="416" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="416" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Graphs &amp; networks — lecture 32: 1 case(s) — Beginner 1</title></rect>
+<text x="1140.5" y="430.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<text x="188" y="453.0" font-size="11" fill="#1f2937" text-anchor="end">Counting &amp; probability</text>
+<rect x="196" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="438" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 13: 1 case(s) — Beginner 1</title></rect>
+<text x="570.5" y="452.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="586" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="438" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 15: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="630.5" y="452.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="646" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="438" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 20: 1 case(s) — Intermediate 1</title></rect>
+<text x="780.5" y="452.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="796" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="438" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 26: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Expert 1</title></rect>
+<text x="960.5" y="452.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="976" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="438" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 28: 1 case(s) — Intermediate 1</title></rect>
+<text x="1020.5" y="452.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="1036" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="438" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 31: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="1110.5" y="452.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="1126" y="438" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Counting &amp; probability — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="475.0" font-size="11" fill="#1f2937" text-anchor="end">Simulation</text>
+<rect x="196" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="460" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 02: 1 case(s) — Expert 1</title></rect>
+<text x="240.5" y="474.5" font-size="10" fill="#1f2937" text-anchor="middle">E</text>
+<rect x="256" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="460" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 05: 1 case(s) — Advanced 1</title></rect>
+<text x="330.5" y="474.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="346" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="460" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 08: 1 case(s) — Advanced 1</title></rect>
+<text x="420.5" y="474.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="436" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="460" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 23: 1 case(s) — Intermediate 1</title></rect>
+<text x="870.5" y="474.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="886" y="460" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 24: 1 case(s) — Advanced 1</title></rect>
+<text x="900.5" y="474.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="916" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="460" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 26: 1 case(s) — Expert 1</title></rect>
+<text x="960.5" y="474.5" font-size="10" fill="#1f2937" text-anchor="middle">E</text>
+<rect x="976" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="460" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 29: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Expert 1</title></rect>
+<text x="1050.5" y="474.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="1066" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="460" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Simulation — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="497.0" font-size="11" fill="#1f2937" text-anchor="end">Data analysis</text>
+<rect x="196" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="482" width="29" height="21" fill="#1f5fae" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 09: 5 case(s) — Beginner 2, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="450.5" y="496.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="466" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="482" width="29" height="21" fill="#6aa5e0" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 12: 3 case(s) — Beginner 1, Foundational 1, Intermediate 1</title></rect>
+<text x="540.5" y="496.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="556" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="482" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 14: 1 case(s) — Foundational 1</title></rect>
+<text x="600.5" y="496.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="616" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="482" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 18: 1 case(s) — Advanced 1</title></rect>
+<text x="720.5" y="496.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="736" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="482" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 20: 2 case(s) — Foundational 1, Advanced 1</title></rect>
+<text x="780.5" y="496.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="796" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="482" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 22: 1 case(s) — Intermediate 1</title></rect>
+<text x="840.5" y="496.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="856" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="482" width="29" height="21" fill="#1f5fae" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 25: 5 case(s) — Beginner 1, Foundational 1, Intermediate 2, Expert 1</title></rect>
+<text x="930.5" y="496.5" font-size="10" fill="#ffffff" text-anchor="middle">I</text>
+<rect x="946" y="482" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 26: 2 case(s) — Intermediate 1, Advanced 1</title></rect>
+<text x="960.5" y="496.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="976" y="482" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 27: 2 case(s) — Intermediate 1, Advanced 1</title></rect>
+<text x="990.5" y="496.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="1006" y="482" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 28: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Expert 1</title></rect>
+<text x="1020.5" y="496.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="1036" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="482" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="482" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 31: 1 case(s) — Intermediate 1</title></rect>
+<text x="1110.5" y="496.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="1126" y="482" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Data analysis — lecture 32: 2 case(s) — Foundational 1, Intermediate 1</title></rect>
+<text x="1140.5" y="496.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<text x="188" y="519.0" font-size="11" fill="#1f2937" text-anchor="end">Debugging &amp; testing</text>
+<rect x="196" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="504" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 02: 1 case(s) — Foundational 1</title></rect>
+<text x="240.5" y="518.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="256" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="504" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 06: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="360.5" y="518.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="376" y="504" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 07: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="390.5" y="518.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="406" y="504" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 08: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="420.5" y="518.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="436" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="504" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 10: 1 case(s) — Beginner 1</title></rect>
+<text x="480.5" y="518.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="496" y="504" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 11: 1 case(s) — Advanced 1</title></rect>
+<text x="510.5" y="518.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="526" y="504" width="29" height="21" fill="#1f5fae" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 12: 5 case(s) — Beginner 1, Foundational 2, Intermediate 1, Advanced 1</title></rect>
+<text x="540.5" y="518.5" font-size="10" fill="#ffffff" text-anchor="middle">F</text>
+<rect x="556" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="504" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 27: 1 case(s) — Beginner 1</title></rect>
+<text x="990.5" y="518.5" font-size="10" fill="#1f2937" text-anchor="middle">B</text>
+<rect x="1006" y="504" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 28: 1 case(s) — Expert 1</title></rect>
+<text x="1020.5" y="518.5" font-size="10" fill="#1f2937" text-anchor="middle">E</text>
+<rect x="1036" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 31: 0 case(s) — </title></rect>
+<rect x="1126" y="504" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Debugging &amp; testing — lecture 32: 0 case(s) — </title></rect>
+<text x="188" y="541.0" font-size="11" fill="#1f2937" text-anchor="end">Complexity &amp; trade-offs</text>
+<rect x="196" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="526" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 04: 1 case(s) — Intermediate 1</title></rect>
+<text x="300.5" y="540.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="316" y="526" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 05: 1 case(s) — Advanced 1</title></rect>
+<text x="330.5" y="540.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="346" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="526" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 16: 1 case(s) — Advanced 1</title></rect>
+<text x="660.5" y="540.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="676" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="526" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 18: 1 case(s) — Advanced 1</title></rect>
+<text x="720.5" y="540.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="736" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="526" width="29" height="21" fill="#3f83cf" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 20: 4 case(s) — Beginner 1, Foundational 1, Intermediate 1, Advanced 1</title></rect>
+<text x="780.5" y="540.5" font-size="10" fill="#ffffff" text-anchor="middle">B</text>
+<rect x="796" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="526" width="29" height="21" fill="#9cc3ec" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 23: 2 case(s) — Intermediate 2</title></rect>
+<text x="870.5" y="540.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="886" y="526" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 24: 1 case(s) — Advanced 1</title></rect>
+<text x="900.5" y="540.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="916" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="526" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 26: 1 case(s) — Advanced 1</title></rect>
+<text x="960.5" y="540.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="976" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 28: 0 case(s) — </title></rect>
+<rect x="1036" y="526" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 29: 1 case(s) — Intermediate 1</title></rect>
+<text x="1050.5" y="540.5" font-size="10" fill="#1f2937" text-anchor="middle">I</text>
+<rect x="1066" y="526" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="526" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 31: 1 case(s) — Foundational 1</title></rect>
+<text x="1110.5" y="540.5" font-size="10" fill="#1f2937" text-anchor="middle">F</text>
+<rect x="1126" y="526" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Complexity &amp; trade-offs — lecture 32: 1 case(s) — Advanced 1</title></rect>
+<text x="1140.5" y="540.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<text x="188" y="557.0" font-size="11" fill="#1f2937" text-anchor="end">Ethics &amp; strategic</text>
+<text x="188" y="569.0" font-size="11" fill="#1f2937" text-anchor="end">reasoning</text>
+<rect x="196" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 01: 0 case(s) — </title></rect>
+<rect x="226" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 02: 0 case(s) — </title></rect>
+<rect x="256" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 03: 0 case(s) — </title></rect>
+<rect x="286" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 04: 0 case(s) — </title></rect>
+<rect x="316" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 05: 0 case(s) — </title></rect>
+<rect x="346" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 06: 0 case(s) — </title></rect>
+<rect x="376" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 07: 0 case(s) — </title></rect>
+<rect x="406" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 08: 0 case(s) — </title></rect>
+<rect x="436" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 09: 0 case(s) — </title></rect>
+<rect x="466" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 10: 0 case(s) — </title></rect>
+<rect x="496" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 11: 0 case(s) — </title></rect>
+<rect x="526" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 12: 0 case(s) — </title></rect>
+<rect x="556" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 13: 0 case(s) — </title></rect>
+<rect x="586" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 14: 0 case(s) — </title></rect>
+<rect x="616" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 15: 0 case(s) — </title></rect>
+<rect x="646" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 16: 0 case(s) — </title></rect>
+<rect x="676" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 17: 0 case(s) — </title></rect>
+<rect x="706" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 18: 0 case(s) — </title></rect>
+<rect x="736" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 19: 0 case(s) — </title></rect>
+<rect x="766" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 20: 0 case(s) — </title></rect>
+<rect x="796" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 21: 0 case(s) — </title></rect>
+<rect x="826" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 22: 0 case(s) — </title></rect>
+<rect x="856" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 23: 0 case(s) — </title></rect>
+<rect x="886" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 24: 0 case(s) — </title></rect>
+<rect x="916" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 25: 0 case(s) — </title></rect>
+<rect x="946" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 26: 0 case(s) — </title></rect>
+<rect x="976" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 27: 0 case(s) — </title></rect>
+<rect x="1006" y="548" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 28: 1 case(s) — Advanced 1</title></rect>
+<text x="1020.5" y="562.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="1036" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 29: 0 case(s) — </title></rect>
+<rect x="1066" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 30: 0 case(s) — </title></rect>
+<rect x="1096" y="548" width="29" height="21" fill="#cfe1f5" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 31: 1 case(s) — Advanced 1</title></rect>
+<text x="1110.5" y="562.5" font-size="10" fill="#1f2937" text-anchor="middle">A</text>
+<rect x="1126" y="548" width="29" height="21" fill="#f6f8fa" stroke="#d0d7de" stroke-width="0.5"><title>Ethics &amp; strategic reasoning — lecture 32: 0 case(s) — </title></rect>
+<text x="196" y="596" font-size="11" fill="#1f2937">Cases per cell:</text>
+<rect x="306" y="584" width="16" height="16" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="328" y="596" font-size="11" fill="#374151">0</text>
+<rect x="382" y="584" width="16" height="16" fill="#cfe1f5" stroke="#d0d7de"/>
+<text x="404" y="596" font-size="11" fill="#374151">1</text>
+<rect x="458" y="584" width="16" height="16" fill="#9cc3ec" stroke="#d0d7de"/>
+<text x="480" y="596" font-size="11" fill="#374151">2</text>
+<rect x="534" y="584" width="16" height="16" fill="#6aa5e0" stroke="#d0d7de"/>
+<text x="556" y="596" font-size="11" fill="#374151">3</text>
+<rect x="610" y="584" width="16" height="16" fill="#3f83cf" stroke="#d0d7de"/>
+<text x="632" y="596" font-size="11" fill="#374151">4</text>
+<rect x="686" y="584" width="16" height="16" fill="#1f5fae" stroke="#d0d7de"/>
+<text x="708" y="596" font-size="11" fill="#374151">5+</text>
+<text x="196" y="620" font-size="11" fill="#1f2937">Letter = dominant tier: B beginner · F foundational · I intermediate · A advanced · E expert. Multiple topics per case allowed (a case counts once per topic it carries).</text>
+</svg>

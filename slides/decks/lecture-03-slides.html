@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 03 — Flowcharts and Control Flow · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 03 — Flowcharts and Control Flow</h1><h3>Learning objectives</h3><ul><li>Read and draw flowcharts for decisions and loops</li><li>Convert flowcharts to pseudocode and back</li><li>Identify unreachable branches and infinite loops</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-009</code>, <code>cs-010</code>, <code>cs-144</code>, <code>cs-011</code>, <code>cs-012</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Flowchart</strong> — a diagram of control flow: processes in rectangles, decisions in diamonds, one start and one end.</li><li><strong>Process box</strong> — a rectangle: one action or computation.</li><li><strong>Decision diamond</strong> — exactly two labelled exits (true/false); both must be reachable.</li><li><strong>Terminator</strong> — the rounded start/end nodes; every path eventually reaches the end.</li><li><strong>Connector</strong> — a labelled circle joining arrows across the page (avoids spaghetti).</li><li><strong>Dead branch</strong> — a path that no input can ever take - usually a bug in the conditions.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Rain or shine: decisions to diamonds</h2><div class='case'><span class='tag'>cs-010</span><p>Picnic decision: go if temperature is 18-28 and no rain; if rain but warm, go with a tent; otherwise cancel. Flowchart it, then trace three days.</p></div><p><strong>Expected:</strong> <code>go / go with tent / cancel</code></p><p class='small'>Cost: Constant; the lesson is diamond wiring, not cost.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The ATM loop, arrows and all</h2><div class='case'><span class='tag'>cs-009</span><p>Cash machine: allow withdrawals while the balance lasts and at most 3 per session; refuse amounts over balance without ending the session.</p></div><p><strong>Expected:</strong> <code>refused / balance 30</code></p><p class='small'>Cost: O(requests). The flowchart question: draw where the 'refused' arrow re-enters.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Dispatch loop: proving termination</h2><div class='case'><span class='tag'>cs-011</span><p>A dispatch system processes queued jobs; every processed job may enqueue 0-2 smaller sub-jobs. Flowchart the loop and argue it terminates.</p></div><p><strong>Expected:</strong> <code>all dispatched</code></p><p class='small'>Cost: O(total size). This is the first occurrence of 'the loop ends because something provably shrinks'.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Guess and check as a loop</h2><div class='case'><span class='tag'>cs-012</span><p>Number game: the program holds a secret 1-50; the player guesses; feedback 'higher'/'lower'/'correct'. Flowchart the game loop including a maximum of 7 guesses.</p></div><pre><code>rain = <span class="k">True</span>
+tent = <span class="k">False</span>
+<span class="k">if</span> rain:
+    <span class="k">if</span> tent:
+        print("go with tent")
+    <span class="k">else</span>:
+        print("cancel")
+<span class="k">else</span>:
+    print("go")</code></pre><p><strong>Expected:</strong> <code>higher / lower / correct</code></p><p class='small'>Cost: At most 7 feedback rounds by the rules; a halving strategy needs ceil(log2(50)) = 6.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 03</div><div class='case'><span class='tag'>Case cs-009 · Beginner</span><h2>The ATM Loop</h2><p>Draw a flowchart for an ATM session: PIN with three attempts, then a menu (balance, withdraw, quit) with a balance check on withdrawal.</p></div><ul><li><code>**Input:** PIN 1234; tries allowed 3; balance 250; withdraw 300 then 100</code></li><li><code>**Output:** fail, fail, fail -&gt; card retained; alternative: 1 fail then withdraw 300 refused, 100 accepted</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-009 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-009 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 03</div><div class='case'><span class='tag'>Case cs-010 · Foundational</span><h2>Rain or Shine</h2><p>A garden watering system turns on based on rain sensor, time of day, and soil moisture. Build the decision flowchart and simplify redundant branches.</p></div><ul><li><code>**Input:** rain no, 14:00, moisture 22% (threshold 30%)</code></li><li><code>**Output:** water on (dry soil overrides afternoon ban); rain yes -&gt; off regardless</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-010 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-010 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 03</div><div class='case'><span class='tag'>Case cs-144 · Foundational</span><h2>Two Paths, One Post</h2><p>The careers office wants an automated reply for internship posts.
+Two staff members wrote requirement notes:</p></div><ul><li><code>**Input:** the two requirement notes, the three sheet types</code></li><li><code>**Output:** the disagreement identified (applications listing a</code></li><li><code>language *and* only-beginner-tools is impossible; the conflict is</code></li><li><code>'lists something non-language, non-tool'), one question, one</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-144 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"A third sheet arrives: `portfolio` for applicants listing a
+project link. Which box of your flowchart changes, and does any arrow
+reverse?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-144 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 03</div><div class='case'><span class='tag'>Case cs-011 · Intermediate</span><h2>The Dispatch Loop</h2><p>A delivery scooter loops: take next order, deliver, return. Model it as a flowchart with a clear termination condition and what happens when orders run out mid-shift.</p></div><ul><li><code>**Input:** orders [A, B, C] then shift ends; new order arrives at the last minute</code></li><li><code>**Output:** A, B, C delivered, then 'shift closed' - the late order is queued for tomorrow, never processed mid-loop</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-011 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-011 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 03</div><div class='case'><span class='tag'>Case cs-012 · Advanced</span><h2>Guess and Check</h2><p>A number-guessing game with 'higher/lower' feedback. Flowchart the loop and argue how many attempts it can take before the loop must end.</p></div><ul><li><code>**Input:** secret 73, range 1..100; guesses 50 (low), 87 (high), 68 (low), 74 (high)</code></li><li><code>**Output:** 6 guesses or fewer always suffice for 1..100 (ceil(log2 101) = 7, achieved 6 here)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-012 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-012 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Diamonds with one exit or unlabelled arrows - half the class does this on day one.</li><li>A loop whose exit arrow leaves from a process box - exit decisions belong in diamonds.</li><li>Trusting the picture without tracing a concrete input through it.</li><li>Drawing 20 symbols where 5 suffice - diagrams are for clarity, not decoration.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Flowcharts and Control Flow</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>Every decision diamond must have how many exits, and how labelled?</li><li>What is the standard proof that a loop terminates?</li><li>What is a dead branch and how do flowcharts expose one?</li></ol>
+<div class="notes">Expected answers (instructor): exactly two, labelled with mutually exclusive conditions name a quantity that strictly decreases (or increases) and is bounded an unreachable path; exposed by tracing arrows from start with all conditions</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L03 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

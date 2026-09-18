@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 20 — Brute Force and When It Wins · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 20 — Brute Force and When It Wins</h1><h3>Learning objectives</h3><ul><li>Write clean brute-force solutions</li><li>Estimate brute-force cost with rough arithmetic</li><li>Decide when brute force is acceptable</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-077</code>, <code>cs-078</code>, <code>cs-079</code>, <code>cs-080</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Brute force</strong> — enumerate the candidate space directly; correct by construction, fast only when the space is small.</li><li><strong>Candidate space</strong> — the set of possibilities the enumeration walks; its size is the real cost.</li><li><strong>Counting first</strong> — size the space with arithmetic BEFORE writing enumeration code.</li><li><strong>Constraint propagation</strong> — apply constraints during generation, not after, so dead branches die early.</li><li><strong>Exhaustive search</strong> — brute force over combinations/subsets; 2^n is the wall that motivates smarter design.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The 4-Digit Lock: ten thousand tries and a theorem</h2><div class='case'><span class='tag'>cs-077</span><p>How many 4-digit codes (0000 to 9999) have digit sum exactly 12?</p></div><pre><code>count = <span class="n">0</span>
+<span class="k">for</span> code <span class="k">in</span> range(<span class="n">10000</span>):
+    <span class="k">if</span> sum(int(d) <span class="k">for</span> d <span class="k">in</span> f"{code:04d}") == <span class="n">12</span>:
+        count += <span class="n">1</span>
+print(count)</code></pre><p><strong>Expected:</strong> <code>415 codes</code></p><p class='small'>Cost: O(10^4 x 4) - constant here, but the pattern is exponential in the number of dials: k dials -&gt; 10^k. Brute force wins while the space stays small.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Perfect Numbers: brute force with a sqrt speed-up</h2><div class='case'><span class='tag'>cs-078</span><p>A perfect number equals the sum of its proper divisors (6 = 1+2+3). Find all perfect numbers below 10000.</p></div><pre><code><span class="k">def</span> is_perfect(n):
+    total = <span class="n">1</span>
+    d = <span class="n">2</span>
+    <span class="k">while</span> d * d &lt;= n:
+        <span class="k">if</span> n % d == <span class="n">0</span>:
+            total += d + n // d
+        d += <span class="n">1</span>
+    <span class="k">return</span> n &gt; <span class="n">1</span> <span class="k">and</span> total == n
+
+print([n <span class="k">for</span> n <span class="k">in</span> range(<span class="n">2</span>, <span class="n">10000</span>) <span class="k">if</span> is_perfect(n)])</code></pre><p><strong>Expected:</strong> <code>[6, 28, 496, 8128]</code></p><p class='small'>Cost: O(n * sqrt(n)) overall - about 1.3 million operations here; the naive version needs 50 million. Same answer, 40x cheaper.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Subset Riddle: every subset, systematically</h2><div class='case'><span class='tag'>cs-080</span><p>From values 3, 5, 2, 8, find a subset summing to 10 - or prove none exists.</p></div><pre><code>items = [<span class="n">3</span>, <span class="n">5</span>, <span class="n">2</span>, <span class="n">8</span>]
+target = <span class="n">10</span>
+found = <span class="k">None</span>
+<span class="k">for</span> mask <span class="k">in</span> range(<span class="n">1</span> &lt;&lt; len(items)):
+    total = sum(items[i] <span class="k">for</span> i <span class="k">in</span> range(len(items)) <span class="k">if</span> mask &gt;&gt; i &amp; <span class="n">1</span>)
+    <span class="k">if</span> total == target:
+        found = [items[i] <span class="k">for</span> i <span class="k">in</span> range(len(items)) <span class="k">if</span> mask &gt;&gt; i &amp; <span class="n">1</span>]
+        <span class="k">break</span>
+print(found)</code></pre><p><strong>Expected:</strong> <code>subset found: 3 + 5 + 2 = 10</code></p><p class='small'>Cost: O(2^n) time - the price of the proof; meet-in-the-middle or DP (later lectures) trade that certainty for speed.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 20</div><div class='case'><span class='tag'>Case cs-077 · Beginner</span><h2>The 4-Digit Lock</h2><p>Enumerate all 4-digit PINs satisfying 'digits sum to 12'. Count the space first, then enumerate. When brute force is the whole solution.</p></div><ul><li><code>**Input:** 4-digit PINs, digits 0-9, digits sum to 12</code></li><li><code>**Output:** count first: 10^4 = 10000 candidates; favourable = 415 (455 sums possible minus the four all-identical digits)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-077 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which constraint is cheapest to check first, and why does order matter?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-077 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 20</div><div class='case'><span class='tag'>Case cs-078 · Foundational</span><h2>Perfect Numbers</h2><p>Find all perfect numbers below 10000 (equal to sum of proper divisors). Brute force with a smarter divisor bound; measure the improvement.</p></div><ul><li><code>**Input:** perfect numbers below 10000 (sum of proper divisors equals n): 6, 28, 496, 8128</code></li><li><code>**Output:** naive O(n^2); divisor bound sqrt(n) makes it ~O(n sqrt n) - measure both</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-078 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Double the input size: is this still acceptable? Show the arithmetic."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-078 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 20</div><div class='case'><span class='tag'>Case cs-079 · Intermediate</span><h2>The Meeting Triple</h2><p>Find three people who can all attend the same slot from availability masks. Enumerate triples systematically and prune; estimate cost honestly.</p></div><ul><li><code>**Input:** 4 people, 3 slots; free masks: ada {1,2}, bo {2,3}, cy {1,3}, dee {1,2,3}</code></li><li><code>**Output:** triples with a common slot: {ada,bo,cy} -&gt; none! check: intersection {2}&amp;{3}&amp;{3}... enumerate all 4 triples</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-079 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which constraint is cheapest to check first, and why does order matter?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-079 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 20</div><div class='case'><span class='tag'>Case cs-080 · Advanced</span><h2>The Subset Riddle</h2><p>Pick numbers from a list to hit an exact target sum. Full enumeration is 2^n; show the cost curve, solve small n, then sketch why cleverness is needed for big n.</p></div><ul><li><code>**Input:** [3, 7, 1, 2, 9], target 12 -&gt; 3+9 or 1+2+9... enumerate subsets</code></li><li><code>**Output:** 2^5 = 32 subsets; subset-sum found: {3, 9} and {1, 2, 9}; cost curve doubles each +1 item</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-080 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Double the input size: is this still acceptable? Show the arithmetic."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-080 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Writing enumeration code before counting the space.</li><li>Filtering after full generation when constraints could prune during generation.</li><li>Assuming brute force is always too slow - at classroom scale it is the oracle.</li><li>Confusing permutations (order matters) with combinations (it does not).</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Brute Force and When It Wins</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>How big is the subset space of 25 items, roughly?</li><li>What makes pruning sound?</li><li>When is brute force the right deliverable?</li></ol>
+<div class="notes">Expected answers (instructor): 2^25 ≈ 33 million — borderline; count before you loop it only removes branches that cannot contain a better answer tiny spaces, correctness baselines, and verifying clever answers</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L20 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

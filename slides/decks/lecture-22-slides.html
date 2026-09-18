@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 22 — Recursion and Divide-and-Conquer · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 22 — Recursion and Divide-and-Conquer</h1><h3>Learning objectives</h3><ul><li>Identify base and recursive cases</li><li>Trace recursive calls with a call diagram</li><li>Solve problems by divide, solve, combine</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-085</code>, <code>cs-086</code>, <code>cs-087</code>, <code>cs-088</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Divide and conquer</strong> — split the problem, solve the parts recursively, combine.</li><li><strong>Halving exponent</strong> — x^n by squaring halves the exponent each step - O(log n) multiplications.</li><li><strong>Recursion tree</strong> — the picture of all calls; its size is the running time.</li><li><strong>Overlapping subproblems</strong> — the same subproblem computed many times - the disease dynamic programming cures.</li><li><strong>Memoisation</strong> — cache each subproblem's answer on first computation; reuse thereafter.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Digit Sum, Twice: recursion as self-similar bookkeeping</h2><div class='case'><span class='tag'>cs-086</span><p>Compute the digit sum of 49206 - recursively, then with iteration. Both must print the same number.</p></div><pre><code><span class="k">def</span> dsum(n):
+    <span class="k">if</span> n &lt; <span class="n">10</span>:
+        <span class="k">return</span> n
+    <span class="k">return</span> n % <span class="n">10</span> + dsum(n // <span class="n">10</span>)
+
+<span class="k">def</span> dsum_iter(n):
+    total = <span class="n">0</span>
+    <span class="k">while</span> n &gt; <span class="n">0</span>:
+        total += n % <span class="n">10</span>
+        n //= <span class="n">10</span>
+    <span class="k">return</span> total
+
+print(dsum(<span class="n">49206</span>), dsum_iter(<span class="n">49206</span>), dsum(<span class="n">0</span>))</code></pre><p><strong>Expected:</strong> <code>21, 21, and 0 for the empty case</code></p><p class='small'>Cost: O(digits) either way; recursion adds stack frames, iteration a variable.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Power by Halving: divide-and-conquer in one line</h2><div class='case'><span class='tag'>cs-087</span><p>Compute 3^13 by repeated squaring, not by twelve multiplications.</p></div><pre><code><span class="k">def</span> power(x, e):
+    <span class="k">if</span> e == <span class="n">0</span>:
+        <span class="k">return</span> <span class="n">1</span>
+    h = power(x, e // <span class="n">2</span>)
+    <span class="k">if</span> e % <span class="n">2</span> == <span class="n">0</span>:
+        <span class="k">return</span> h * h
+    <span class="k">return</span> x * h * h
+
+print(power(<span class="n">3</span>, <span class="n">13</span>), <span class="n">3</span> ** <span class="n">13</span>)</code></pre><p><strong>Expected:</strong> <code>1594323 (matches the built-in power)</code></p><p class='small'>Cost: O(log e) multiplications; big integers make each multiply slower as values grow, but the count is the point.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Tower Steps: recursion that repeats itself</h2><div class='case'><span class='tag'>cs-088</span><p>Staircase of 8 steps; you climb 1 or 2 at a time. How many distinct ways to the top?</p></div><pre><code>calls = {"plain": <span class="n">0</span>, "memo": <span class="n">0</span>}
+
+<span class="k">def</span> ways_plain(n):
+    calls["plain"] += <span class="n">1</span>
+    <span class="k">if</span> n &lt;= <span class="n">2</span>:
+        <span class="k">return</span> n
+    <span class="k">return</span> ways_plain(n - <span class="n">1</span>) + ways_plain(n - <span class="n">2</span>)
+
+<span class="k">def</span> ways_memo(n, cache={<span class="n">1</span>: <span class="n">1</span>, <span class="n">2</span>: <span class="n">2</span>}):
+    calls["memo"] += <span class="n">1</span>
+    <span class="k">if</span> n <span class="k">in</span> cache:
+        <span class="k">return</span> cache[n]
+    cache[n] = ways_memo(n - <span class="n">1</span>) + ways_memo(n - <span class="n">2</span>)
+    <span class="k">return</span> cache[n]
+
+print(ways_plain(<span class="n">8</span>), ways_memo(<span class="n">8</span>), calls["plain"], calls["memo"])</code></pre><p><strong>Expected:</strong> <code>34 ways; plain recursion made 67 calls, memoised 15</code></p><p class='small'>Cost: Plain: O(2^n)-ish (golden-ratio precise). Memoised: O(n) time and space - this is dynamic programming arriving by fix-it ticket, formally next lecture.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 22</div><div class='case'><span class='tag'>Case cs-085 · Beginner</span><h2>The Russian Dolls</h2><p>Describe nested dolls recursively; write the function that counts layers. Base case and trust in the recursive call, made concrete.</p></div><ul><li><code>**Input:** doll with 5 layers</code></li><li><code>**Output:** count_layers: 0 for no doll, else 1 + inner; base case is the whole lesson</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-085 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where does the memory go in the memoised version, and what is the trade?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-085 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 22</div><div class='case'><span class='tag'>Case cs-086 · Foundational</span><h2>Digit Sum, Twice</h2><p>Digit sum via loop vs recursion; then count the calls. Same result, different shapes; when recursion mirrors the problem's structure.</p></div><ul><li><code>**Input:** n = 4723</code></li><li><code>**Output:** digit sum 16 both ways; recursive version makes 4 calls; loop makes 4 iterations</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-086 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"State f(k)'s meaning in words; is your statement precise enough to code from?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-086 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 22</div><div class='case'><span class='tag'>Case cs-087 · Intermediate</span><h2>Power by Halving</h2><p>Compute x^n with O(log n) multiplications by halving the exponent. Divide-conquer-combine, with a trace that shows the saving.</p></div><ul><li><code>**Input:** 2^10 -&gt; 4 multiplications (vs 9 naive); 2^100 -&gt; ~7 (vs 99)</code></li><li><code>**Output:** x^n = x^(n/2) squared; odd n costs one extra multiply; trace shows the saving</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-087 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where does the memory go in the memoised version, and what is the trade?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-087 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 22</div><div class='case'><span class='tag'>Case cs-088 · Expert</span><h2>The Tower Steps</h2><p>Count ways to climb n steps taking 1 or 2 at a time. Recursion tree shows re-computation; memoisation saves it. The bridge to dynamic programming.</p></div><ul><li><code>**Input:** ways(5) = 8 (1+1+1+1+1, 2+1+1+1, ... patterns); ways(1)=1, ways(2)=2</code></li><li><code>**Output:** ways(n) = ways(n-1) + ways(n-2): Fibonacci in disguise; memo turns 2^n into O(n)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-088 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"State f(k)'s meaning in words; is your statement precise enough to code from?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-088 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Assuming every recursion halves the work - decreasing by one is linear, halving is logarithmic.</li><li>Forgetting the odd-exponent extra multiply in fast power - wrong answers on half the inputs.</li><li>Memoising on the wrong key (a mutable list instead of its tuple).</li><li>Drawing the recursion tree after optimising, instead of before.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Recursion and Divide-and-Conquer</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>What grounds a recursion?</li><li>When does a table beat the tree?</li><li>What did cs-087 buy with halving?</li></ol>
+<div class="notes">Expected answers (instructor): a base case reachable for every input path when subproblems repeat — overlapping subproblems multiplications dropped from ~13 to ~5 — logarithmic vs linear</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L22 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 18 — Sorting and Pair Scans · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 18 — Sorting and Pair Scans</h1><h3>Learning objectives</h3><ul><li>Sort with keys; sort tuples and parallel data</li><li>Scan sorted data for nearest/adjacent pairs</li><li>Explain why sorting enables simpler scans</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-069</code>, <code>cs-070</code>, <code>cs-071</code>, <code>cs-134</code>, <code>cs-072</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Stable sort</strong> — equal keys keep their original relative order - the property that makes sort-by-one-key-at-a-time compose.</li><li><strong>Composite key</strong> — a tuple used as the sort key so ties break on later components.</li><li><strong>Merge</strong> — combine two sorted lists into one in a single linear pass - the engine of merge sort.</li><li><strong>Selection sort (idea)</strong> — repeatedly pick the smallest remaining element; O(n^2) comparisons regardless of input.</li><li><strong>Insertion sort (idea)</strong> — grow a sorted prefix by sliding each new item left into place; fast on nearly-sorted data.</li><li><strong>Comparison sort</strong> — any sort that only asks 'is a before b?'; log(n!) is its information-theoretic floor.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Rank the Leaderboard: sort with a two-part key</h2><div class='case'><span class='tag'>cs-069</span><p>Players: ada 90, bo 75, cy 90. Rank by score, highest first; ties broken alphabetically.</p></div><pre><code>players = [("ada", <span class="n">90</span>), ("bo", <span class="n">75</span>), ("cy", <span class="n">90</span>)]
+ranked = sorted(players, key=lambda p: (-p[<span class="n">1</span>], p[<span class="n">0</span>]))
+print(ranked)</code></pre><p><strong>Expected:</strong> <code>ada (90), cy (90), bo (75)</code></p><p class='small'>Cost: O(n log n) comparisons - the sorting cost dominates; the key is computed once per element.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Meeting Merge: the merge step by hand</h2><div class='case'><span class='tag'>cs-070</span><p>Two rooms' meeting start times are already sorted: 9, 10, 12 and 9.5, 11. Produce one sorted list.</p></div><pre><code>a = [<span class="n">9</span>, <span class="n">10</span>, <span class="n">12</span>]
+b = [<span class="n">9.5</span>, <span class="n">11</span>]
+merged = []
+i = j = <span class="n">0</span>
+<span class="k">while</span> i &lt; len(a) <span class="k">and</span> j &lt; len(b):
+    <span class="k">if</span> a[i] &lt;= b[j]:
+        merged.append(a[i])
+        i += <span class="n">1</span>
+    <span class="k">else</span>:
+        merged.append(b[j])
+        j += <span class="n">1</span>
+merged.extend(a[i:])
+merged.extend(b[j:])
+print(merged)</code></pre><p><strong>Expected:</strong> <code>9, 9.5, 10, 11, 12</code></p><p class='small'>Cost: O(n + m) - linear in the output size; no element is compared twice.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Closest Pair, Small n: brute force and its price</h2><div class='case'><span class='tag'>cs-071</span><p>Points (0,0), (3,4), (1,1). Which two are closest?</p></div><pre><code>points = [(<span class="n">0</span>, <span class="n">0</span>), (<span class="n">3</span>, <span class="n">4</span>), (<span class="n">1</span>, <span class="n">1</span>)]
+best = <span class="k">None</span>
+<span class="k">for</span> i <span class="k">in</span> range(len(points)):
+    <span class="k">for</span> j <span class="k">in</span> range(i + <span class="n">1</span>, len(points)):
+        dx = points[i][<span class="n">0</span>] - points[j][<span class="n">0</span>]
+        dy = points[i][<span class="n">1</span>] - points[j][<span class="n">1</span>]
+        d = (dx * dx + dy * dy) ** <span class="n">0.5</span>
+        <span class="k">if</span> best is <span class="k">None</span> <span class="k">or</span> d &lt; best[<span class="n">0</span>]:
+            best = (d, points[i], points[j])
+print(best[<span class="n">1</span>], best[<span class="n">2</span>])</code></pre><p><strong>Expected:</strong> <code>closest pair: (0, 0) and (1, 1)</code></p><p class='small'>Cost: O(n^2) pairs - fine for a classroom, hopeless for a million points; knowing WHERE the wall is, is the lecture's point.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 18</div><div class='case'><span class='tag'>Case cs-069 · Beginner</span><h2>Rank the Leaderboard</h2><p>Sort players by score, then by name for ties. Stable sorting and composite keys; ties as a first-class concern.</p></div><ul><li><code>**Input:** scores [(bo,90), (ada,95), (cy,90), (dee,88)]</code></li><li><code>**Output:** sorted: ada 95, bo 90, cy 90, dee 88 (ties alphabetical: bo before cy - stable multi-key)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-069 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which boundary test would you keep if you could keep only one?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-069 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 18</div><div class='case'><span class='tag'>Case cs-070 · Foundational</span><h2>The Meeting Merge</h2><p>Merge overlapping meeting intervals. Sort first, then single scan with a merge rule; why sorting makes the scan trivial.</p></div><ul><li><code>**Input:** meetings [(1,4), (2,3), (5,7), (6,8)]</code></li><li><code>**Output:** merged: [(1,4), (5,8)]; (2,3) inside (1,4); (6,8) overlaps (5,7)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-070 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"If this scan ran 10,000 times a day, what would you precompute?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-070 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 18</div><div class='case'><span class='tag'>Case cs-071 · Intermediate</span><h2>Closest Pair, Small n</h2><p>Find the two closest points on a line. Sort once, scan adjacent pairs. Then discuss: what breaks in two dimensions? (Motivation, not implementation.)</p></div><ul><li><code>**Input:** points [1.5, 3.1, 9.2, 9.9, 4.0] -&gt; closest pair (9.2, 9.9) distance 0.7</code></li><li><code>**Output:** sort by value, then scan adjacent pairs only; (3.1, 4.0) is 0.9 apart — checking every pair would also find it, but slower</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-071 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which boundary test would you keep if you could keep only one?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-071 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 18</div><div class='case'><span class='tag'>Case cs-134 · Advanced</span><h2>The Sliding Sensor Window</h2><p>A weather station posts one reading per minute. The dashboard must flag
+any minute whose value exceeds the **average of the previous three
+minutes** (the three before it, not counting itself) by more than 10.
+Minutes with an incomplete window are never flagged.</p></div><ul><li><code>**Input:** the twelve readings, k = 3, threshold 10</code></li><li><code>**Output:** flags at indices 4 and 8 (values 30 and 45) — day cost</code></li><li><code>A: 4320 additions, B: 1440 updates</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-134 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"The station upgrades to one reading per second (n = 86,400,
+k = 180). Re-count the operations. Does your ship decision change, and
+at what k would it flip?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-134 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 18</div><div class='case'><span class='tag'>Case cs-072 · Expert</span><h2>The Kth Element</h2><p>Find the k-th smallest without fully sorting (partial selection via repeated min-removal on paper, then discuss doing better). Analysis reasoning from first principles.</p></div><ul><li><code>**Input:** [7, 1, 5, 3, 9, 2], k = 3 -&gt; answer 3; k = 1 -&gt; 1; k = 6 -&gt; 9</code></li><li><code>**Output:** kth smallest via sort is O(n log n); repeated-min selection is O(kn) - compare on n=10000, k=3</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-072 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"If this scan ran 10,000 times a day, what would you precompute?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-072 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Believing sorted() sorts in place - it returns a new list; the original is untouched.</li><li>Sorting by one key then overwriting with another, expecting both to apply - order of passes matters.</li><li>Assuming stability without checking the documented contract of the sort used.</li><li>Treating n log n vs n^2 as academic - on 100k items it is the difference between instant and minutes.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Sorting and Pair Scans</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>What does sorting buy for interval merging?</li><li>Why must the leaderboard sort be stable or fully keyed?</li><li>What does the kth-element question really ask?</li></ol>
+<div class="notes">Expected answers (instructor): overlaps become adjacent; one sweep suffices ties must resolve deterministically or the order is arbitrary selection, not full sorting — sorting is the simple correct baseline</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L18 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

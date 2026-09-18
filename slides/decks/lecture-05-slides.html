@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 05 — Numbers, Remainders, and Cycles · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 05 — Numbers, Remainders, and Cycles</h1><h3>Learning objectives</h3><ul><li>Use integer division and remainder to model cycles</li><li>Reason about divisibility and digit sums</li><li>Recognise when modulo simplifies a problem</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-017</code>, <code>cs-018</code>, <code>cs-019</code>, <code>cs-020</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Integer division `//`</strong> — division keeping only the whole part: `17 // 5` is 3.</li><li><strong>Remainder (modulo) `%`</strong> — what is left after whole divisions: `17 % 5` is 2.</li><li><strong>Cycle</strong> — a pattern repeating every k steps; `n % k` names the position inside the cycle.</li><li><strong>Digit extraction</strong> — `n % 10` is the last digit of n; `n // 10` removes it.</li><li><strong>Divisor</strong> — d divides n exactly when `n % d == 0`.</li><li><strong>Simulation</strong> — stepping a process rule by rule, as it would happen, instead of computing a formula.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The pager schedule as a cycle</h2><div class='case'><span class='tag'>cs-017</span><p>On-call duty rotates among 5 people daily; person 1 is on call on day 1. Who is on call on day 47? And what changes if rotation skips weekends (day 1 = Monday)?</p></div><p><strong>Expected:</strong> <code>2 then 5</code></p><p class='small'>Cost: O(1) for both variants - arithmetic beats simulating day by day.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Digits, sums, and the divisible-by-3 rule</h2><div class='case'><span class='tag'>cs-018</span><p>Peel the digits of 4723 by arithmetic and sum them. Is 4723 divisible by 3?</p></div><pre><code>n = <span class="n">4723</span>
+total = <span class="n">0</span>
+<span class="k">while</span> n &gt; <span class="n">0</span>:
+    total += n % <span class="n">10</span>
+    n //= <span class="n">10</span>
+print(total)</code></pre><p><strong>Expected:</strong> <code>16 then False</code></p><p class='small'>Cost: O(d) where d is the digit count (about log10 of n) - logarithmic in the value, which surprises students.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 05</div><div class='case'><span class='tag'>Case cs-017 · Beginner</span><h2>The Pager Schedule</h2><p>On-call duty rotates among 5 people every day. Given the day number of the year and who starts, decide who is on call. Then: what changes if rotation skips weekends?</p></div><ul><li><code>**Input:** 5 people, rotation starts with person 1 on day 1; day 47</code></li><li><code>**Output:** day 47 -&gt; ((47-1) mod 5)+1 = person 2; with weekend skip: count only weekdays</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-017 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-017 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 05</div><div class='case'><span class='tag'>Case cs-018 · Foundational</span><h2>Digits and Their Sum</h2><p>Compute the digit sum of a positive integer, and decide divisibility by 3 from it. Uses // and % to peel digits.</p></div><ul><li><code>**Input:** 4723</code></li><li><code>**Output:** digit sum 16 -&gt; not divisible by 3; peel: 4723 % 10 = 3, then 472, ...</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-018 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-018 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 05</div><div class='case'><span class='tag'>Case cs-019 · Intermediate</span><h2>The Broken Keypad</h2><p>A keypad digit is dead; given a target number, output all numbers up to N that avoid that digit. Careful digit checking with // and %.</p></div><ul><li><code>**Input:** dead digit 4, N = 30</code></li><li><code>**Output:** 1,2,3,5,6,7,8,9,10,11,12,13,15,... (23 numbers below 30 avoid the digit 4)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-019 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Propose one extra rule that would change the verdict — is it an improvement?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-019 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 05</div><div class='case'><span class='tag'>Case cs-020 · Advanced</span><h2>The Josephus Ring</h2><p>People stand in a circle; every k-th is removed until one remains. Derive the survivor with a recurrence, verify by simulation. A first taste of proof plus experiment.</p></div><ul><li><code>**Input:** n = 7 people, k = 3</code></li><li><code>**Output:** survivor position 4 (0-indexed 3)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-020 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Which assumption would you attack first if you had to argue the other side?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-020 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Treating % as trivia to memorise instead of a cycle-position tool.</li><li>Starting cycles at 1 vs 0 - state the convention before computing.</li><li>Extracting digits with strings when the arithmetic is the point of the exercise.</li><li>Simulating the Josephus ring for large n instead of tabulating small cases and finding the pattern.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Numbers, Remainders, and Cycles</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>Compute 17 mod 5 and 17 // 5, and say what each means for a 5-day cycle.</li><li>Why is remainder better than an if-chain for schedules?</li><li>What replaced a loop in the Josephus analysis?</li></ol>
+<div class="notes">Expected answers (instructor): 2 and 3: day-before-cycle position and completed cycles one expression handles all positions; no special cases to maintain a table of small cases plus a conjecture (mathematics replacing simulation)</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L05 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 11 — Lists and Slicing · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 11 — Lists and Slicing</h1><h3>Learning objectives</h3><ul><li>Mutate, slice, and rebuild lists</li><li>Distinguish aliasing from copying</li><li>Choose the right traversal (index vs element vs enumerate)</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-041</code>, <code>cs-042</code>, <code>cs-043</code>, <code>cs-044</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Aliasing</strong> — two names bound to the same list object; mutation through one is visible through the other.</li><li><strong>Copy (shallow)</strong> — lst[:] or list(lst) makes a new outer list; nested items are still shared.</li><li><strong>In-place mutation</strong> — methods like append/sort/reverse change the object; they usually return None.</li><li><strong>Rotation</strong> — moving items from one end of a list to the other by k positions (wraparound).</li><li><strong>Deduplication</strong> — keeping first occurrences only - order-preserving vs set-based variants.</li><li><strong>Slicing view</strong> — a slice produces a *new* list; it is not a live window onto the original.</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The queue reorder: rotations as slices</h2><div class='case'><span class='tag'>cs-041</span><p>Queue [A, B, C, D, E], k = 2 (last 2 to front). What do k = 0, 5, 7 give?</p></div><p><strong>Expected:</strong> <code>0 unchanged | 2 [D,E,A,B,C] | 5 unchanged | 7 [D,E,A,B,C]</code></p><p class='small'>Cost: O(n); the in-place three-reversal rotation (O(1) extra space) is the enrichment extension.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Deduplication patterns: order vs sorted</h2><div class='case'><span class='tag'>cs-042</span><p>[3, 1, 3, 2, 1, 3] → order-preserving dedupe, and the sorted-unique variant. Reference: [3, 1, 2] and [1, 2, 3].</p></div><p><strong>Expected:</strong> <code>[3, 1, 2] [1, 2, 3]</code></p><p class='small'>Cost: O(n) with a seen-set; the naive 'not in keep' is O(n^2) - measurable at n = 10,000.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>Rotate and roll: left, right, and wraparound</h2><div class='case'><span class='tag'>cs-043</span><p>[1, 2, 3, 4, 5]: rotate left by 2 → [3,4,5,1,2]; right by 2 → [4,5,1,2,3].</p></div><p><strong>Expected:</strong> <code>[3, 4, 5, 1, 2] | [4, 5, 1, 2, 3]</code></p><p class='small'>Cost: O(n); in-place three-reversal is O(n) time, O(1) extra space.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The aliasing trap: [[0]*3]*2</h2><div class='case'><span class='tag'>cs-044</span><p>grid = [[0]*3]*2; grid[0][0] = 9. What does grid hold? Then the correct construction - and the same assignment there?</p></div><pre><code>a = [<span class="n">1</span>, <span class="n">2</span>]
+b = a
+b.append(<span class="n">3</span>)
+print(a, b is a)</code></pre><p><strong>Expected:</strong> <code>[[9, 0, 0], [9, 0, 0]]  then  [[9, 0, 0], [0, 0, 0]]</code></p><p class='small'>Cost: Constant per assignment; the defect class returns as cs-047's swap and cs-027's ghost duplicate.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 11</div><div class='case'><span class='tag'>Case cs-041 · Beginner</span><h2>The Queue Reorder</h2><p>Move the last k people of a queue to the front, preserving order. Slicing plus concatenation; discuss negative indices.</p></div><ul><li><code>**Input:** queue [A, B, C, D, E], k = 2 (last 2 to front)</code></li><li><code>**Output:** [D, E, A, B, C]; k = 0 -&gt; same; k = 5 -&gt; same; k = 7 -&gt; same (wrap)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-041 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Find the smallest change to the task that makes the slice solution wrong."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-041 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 11</div><div class='case'><span class='tag'>Case cs-042 · Foundational</span><h2>Deduplication Patterns</h2><p>Remove duplicates three ways: preserving order with a seen-set, via sorting, and the naive quadratic way. Compare and test all three.</p></div><ul><li><code>**Input:** [3, 1, 3, 2, 1, 3]</code></li><li><code>**Output:** order-keeping: [3, 1, 2]; sort-based: [1, 2, 3]; naive O(n^2): same as order-keeping</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-042 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"When is the extra memory of slicing worth it, and when would you insist on in-place?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-042 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 11</div><div class='case'><span class='tag'>Case cs-043 · Intermediate</span><h2>Rotate and Roll</h2><p>Rotate a list by k positions (left or right) without extra library calls. Handle k larger than the length; connect rotation to slicing.</p></div><ul><li><code>**Input:** [1, 2, 3, 4, 5], rotate left by 2; rotate right by 2</code></li><li><code>**Output:** left 2: [3, 4, 5, 1, 2]; right 2: [4, 5, 1, 2, 3]</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-043 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Find the smallest change to the task that makes the slice solution wrong."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-043 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 11</div><div class='case'><span class='tag'>Case cs-044 · Advanced</span><h2>The Aliasing Trap</h2><p>A matrix is built as [[0]*3]*2 and rows mutate together. Explain why, then build it correctly. Aliasing as the deepest beginner trap.</p></div><ul><li><code>**Input:** grid = [[0]*3]*2; grid[0][0] = 9</code></li><li><code>**Output:** both rows become [9, 0, 0] - the two rows are one object; fix: [[0]*3 for _ in range(2)]</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-044 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"When is the extra memory of slicing worth it, and when would you insist on in-place?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-044 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Assuming assignment copies a list.</li><li>Slicing when a copy is needed - aliasing corruption follows.</li><li>Reversing by popping while still iterating over the same list.</li><li>Chaining lst = lst.sort() and losing the list to None.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Lists and Slicing</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>What is the difference between a = b and a = b[:] for lists?</li><li>Give the slice for the last three items and for every second item.</li><li>Why did the roster corrupt in cs-044?</li></ol>
+<div class="notes">Expected answers (instructor): the first aliases (one object, two names), the second copies lst[-3:] and lst[::2] two names referenced one list; an 'append' to one mutated the other</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L11 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>

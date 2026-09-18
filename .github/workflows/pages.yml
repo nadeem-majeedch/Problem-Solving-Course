@@ -1,0 +1,126 @@
+name: pages
+
+# Builds the public student site and deploys it to GitHub Pages.
+#
+# Deployment mechanism: the documented GitHub Pages flow —
+# actions/upload-pages-artifact + actions/deploy-pages (Actions-based
+# deployment, not branch commits). The artifact is built from `site/`
+# only; the leak check inside build_site.py fails the job if any
+# instructor-only material reached the output, and the verification
+# step below re-checks the artifact before upload.
+#
+# Required repository settings (Settings → Pages):
+#   Source: "GitHub Actions"   (not "Deploy from a branch")
+# Everything else is automatic; see docs/deployment.md.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # The site build itself is stdlib-only; this installs the pinned
+      # test toolchain so the validation gate is reproducible.
+      - name: Install pinned test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      - name: Regenerate case catalog (fails on metadata errors)
+        run: python scripts/generate_catalog.py
+
+      - name: Regenerate slide decks from lecture sources
+        run: python scripts/gen_slides.py
+
+      - name: Validate repository content and links
+        run: python scripts/validate.py
+
+      - name: Run tooling tests
+        run: python -m pytest tests/ -q
+
+      - name: Build public student site
+        run: python scripts/build_site.py
+
+      - name: Audit built site (coverage, links, navigation, a11y)
+        run: python scripts/audit_site.py
+        # build_site.py performs the leak check and exits non-zero if any
+        # instructor-only material reaches site/.
+
+      - name: Verify artifact before upload
+        run: |
+          python - <<'EOF'
+          import sys
+          from pathlib import Path
+
+          out = Path("site")
+          # 1. Instructor-only material must never enter the artifact.
+          banned = [
+              p for p in out.rglob("*")
+              if p.is_file() and (
+                  "instructor" in p.parts
+                  or "keys" in p.parts
+                  or "teaching-notes" in p.name
+              )
+          ]
+          for p in banned:
+              print(f"BANNED CONTENT in artifact: {p}", file=sys.stderr)
+          if banned:
+              sys.exit(1)
+
+          # 2. Required entry points and coverage must be present.
+          missing = [
+              str(rel) for rel in (
+                  out / "index.html",
+                  out / "search.html",
+                  out / "pages.json",
+                  out / "catalog.html",
+                  *(out / "lectures" / f"lecture-{n:02d}.html" for n in range(1, 33)),
+                  *(out / "slides" / "decks" / f"lecture-{n:02d}-slides.html" for n in range(1, 33)),
+              )
+              if not rel.is_file()
+          ]
+          for m in missing:
+              print(f"MISSING from artifact: {m}", file=sys.stderr)
+          if missing:
+              sys.exit(1)
+
+          cases = len(list((out / "cases").glob("cs-*.html")))
+          print(f"artifact OK: entry points present, 32 lectures, 32 decks, {cases} case pages")
+          if cases != 128:
+              print(f"expected 128 case pages, found {cases}", file=sys.stderr)
+              sys.exit(1)
+          EOF
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

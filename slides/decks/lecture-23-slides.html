@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 23 — Greedy and Dynamic Programming · Slides</title>
+<style>/* Problem Solving — CS & DS · course slide design language */
+:root{--ink:#1c2430;--paper:#f7f5f0;--accent:#0f6b5c;--accent2:#b3541e;
+ --soft:#e7e2d8;--code:#12202b;--codetext:#e8eef2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+ background:var(--paper);overflow:hidden}
+.deck{height:100vh;scroll-snap-type:y mandatory;overflow-y:scroll}
+.slide{height:100vh;scroll-snap-align:start;padding:6vh 7vw;display:flex;
+ flex-direction:column;justify-content:center;page-break-after:always}
+.slide>*{max-width:52rem}
+h1{font-size:2.6rem;line-height:1.15;color:var(--accent)}
+h2{font-size:1.9rem;margin-bottom:1rem;color:var(--accent);
+ border-bottom:3px solid var(--soft);padding-bottom:.3rem}
+h3{font-size:1.25rem;margin:.9rem 0 .4rem;color:var(--accent2)}
+p,li{font-size:1.28rem;line-height:1.5}
+ul,ol{margin-left:1.4rem;margin-top:.4rem}
+li{margin:.35rem 0}
+.small{font-size:1.02rem;color:#5a5f66}
+.kicker{text-transform:uppercase;letter-spacing:.18em;font-size:.95rem;
+ color:var(--accent2);margin-bottom:1rem;font-family:sans-serif}
+code{font-family:'Cascadia Code',Consolas,monospace}
+p code,li code{background:var(--soft);padding:.05em .3em;border-radius:4px;
+ font-size:1.05em}
+pre{background:var(--code);color:var(--codetext);padding:1rem 1.2rem;
+ border-radius:8px;overflow:auto;margin:.6rem 0;font-size:1.02rem;
+ line-height:1.45;max-width:52rem}
+pre code{background:none;color:inherit}
+pre .k{color:#7fd0b2}pre .s{color:#f0b27a}pre .c{color:#8aa39a;font-style:italic}
+pre .n{color:#a8c7e8}pre .o{color:#d9b8ff}
+table{border-collapse:collapse;margin:.6rem 0;font-size:1.1rem}
+th,td{border:1.5px solid var(--ink);padding:.35rem .8rem;text-align:left}
+th{background:var(--soft)}
+.case{border-left:6px solid var(--accent2);background:#fff;
+ padding:1rem 1.4rem;border-radius:0 8px 8px 0;margin:.8rem 0}
+.case .tag{font-family:sans-serif;font-size:.85rem;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--accent2)}
+.timer{display:inline-block;background:var(--accent);color:#fff;
+ font-family:sans-serif;font-weight:bold;padding:.35rem .9rem;
+ border-radius:999px;margin:.6rem 0;font-size:1.05rem}
+.notes{display:none}
+footer{position:fixed;bottom:1.2vh;right:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+.hint{position:fixed;bottom:1.2vh;left:2vw;font-family:sans-serif;
+ font-size:.85rem;color:#8a8f96}
+@media print{.deck{overflow:visible;height:auto}
+ .slide{page-break-after:always;height:100vh}.hint,footer{display:none}}
+</style></head>
+<body><div class="deck"><section class="slide"><div class="kicker">Problem Solving — CS &amp; DS</div><h1>Lecture 23 — Greedy and Dynamic Programming</h1><h3>Learning objectives</h3><ul><li>Argue when greedy choices are safe</li><li>Formulate DP states and transitions</li><li>Memoise a recursive solution</li></ul><p class="small">Case-based lecture: you attempt, we discuss, then we reveal.</p></section>
+<section class="slide"><div class="kicker">Today</div><h2>The plan</h2><ul><li>Four cases: <code>cs-089</code>, <code>cs-090</code>, <code>cs-091</code>, <code>cs-131</code>, <code>cs-143</code>, <code>cs-092</code></li><li>Each: 5-minute attempt → discussion → reveal → prompt</li><li>Worked examples in between — ask anything</li><li>Break mid-lecture · exit question at the end</li></ul></section>
+<section class="slide"><div class="kicker">Key definitions</div><h2>Key definitions</h2><ul><li><strong>Greedy choice</strong> — take the locally best option now and never reconsider it</li><li><strong>Exchange argument</strong> — a proof that any optimal solution can be reshaped into the greedy one</li><li><strong>Counterexample</strong> — a small input where a proposed rule gives a provably wrong answer</li><li><strong>Overlapping subproblems</strong> — a recursive computation that recomputes the same smaller cases many times</li><li><strong>Memoisation</strong> — cache each subproblem's answer the first time it is computed</li><li><strong>Dynamic programming</strong> — solve every needed subproblem once, in an order that makes each answer ready when required</li></ul>
+<div class="notes">Explain each in one breath; the cases will do the heavy lifting.</div></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Meeting Room Marathon: greedy by earliest end</h2><div class='case'><span class='tag'>cs-090</span><p>Meetings (9,10.5), (9.5,11), (11,12), (10.5,12.5). Book as many non-overlapping meetings as possible in one room.</p></div><pre><code>meetings = [(<span class="n">9</span>, <span class="n">10.5</span>), (<span class="n">9.5</span>, <span class="n">11</span>), (<span class="n">11</span>, <span class="n">12</span>), (<span class="n">10.5</span>, <span class="n">12.5</span>)]
+ms = sorted(meetings, key=lambda m: m[<span class="n">1</span>])
+taken = <span class="n">0</span>
+last_end = float("-inf")
+chosen = []
+<span class="k">for</span> s, e <span class="k">in</span> ms:
+    <span class="k">if</span> s &gt;= last_end:
+        taken += <span class="n">1</span>
+        last_end = e
+        chosen.append((s, e))
+print(taken, chosen)</code></pre><p><strong>Expected:</strong> <code>2 meetings: (9, 10.5) and (11, 12)</code></p><p class='small'>Cost: O(n log n) for the sort, O(n) for the sweep.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Tolerance Ladder: greedy that must be checked</h2><div class='case'><span class='tag'>cs-091</span><p>A tolerance budget of 10 units; items cost 4, 5, 6, 7. Maximise how many items fit - then find a cost profile where 'cheapest first' fails.</p></div><pre><code>costs = [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>, <span class="n">7</span>]
+budget = <span class="n">10</span>
+costs.sort()
+taken = spent = <span class="n">0</span>
+<span class="k">for</span> c <span class="k">in</span> costs:
+    <span class="k">if</span> spent + c &lt;= budget:
+        taken += <span class="n">1</span>
+        spent += c
+print(taken, spent, budget - spent)</code></pre><p><strong>Expected:</strong> <code>2 items (4 + 5), leftover 1 - optimal for count, NOT for leftover (4+6 fills exactly)</code></p><p class='small'>Cost: O(n log n) sort dominates; the check-for-counterexample habit costs nothing and saves wrong answers.</p></section>
+<section class="slide"><div class="kicker">Worked example</div><h2>The Budgeted Syllabus: dynamic programming on weight</h2><div class='case'><span class='tag'>cs-092</span><p>Topics with (hours, points): (3,60), (2,50), (4,80), (1,30). Study budget 5 hours; maximise total points (each topic taken at most once).</p></div><pre><code>topics = [(<span class="n">3</span>, <span class="n">60</span>), (<span class="n">2</span>, <span class="n">50</span>), (<span class="n">4</span>, <span class="n">80</span>), (<span class="n">1</span>, <span class="n">30</span>)]
+budget = <span class="n">5</span>
+dp = [<span class="n">0</span>] * (budget + <span class="n">1</span>)
+<span class="k">for</span> h, p <span class="k">in</span> topics:
+    <span class="k">for</span> j <span class="k">in</span> range(budget, h - <span class="n">1</span>, -<span class="n">1</span>):
+        dp[j] = max(dp[j], dp[j - h] + p)
+print(dp[budget])</code></pre><p><strong>Expected:</strong> <code>110 points (topics (2,50) and (3,60))</code></p><p class='small'>Cost: O(items x budget) time and O(budget) space - the classic DP price, paid to buy optimality that greedy cannot guarantee here.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 23</div><div class='case'><span class='tag'>Case cs-089 · Beginner</span><h2>The Coin Conjecture</h2><p>Greedy coin change works for one coin system and fails for another. Find the failing case, explain why, and state when greedy is safe.</p></div><ul><li><code>**Input:** coins {1, 5, 10, 25} for 87 -&gt; greedy 25x3+10x1+1x2 = 6 coins; system {1, 3, 4} for 6 -&gt; greedy 4+1+1 = 3, optimal 3+3 = 2</code></li><li><code>**Output:** greedy optimal for the first system; FAILS for the second - one counterexample kills the claim</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-089 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where does the memory go in the memoised version, and what is the trade?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-089 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 23</div><div class='case'><span class='tag'>Case cs-090 · Foundational</span><h2>The Meeting Room Marathon</h2><p>Choose the most non-overlapping meetings. Sort by end time; argue the choice with an exchange argument. Greedy with a proof-shaped justification.</p></div><ul><li><code>**Input:** meetings [(0,3), (1,2), (3,5), (4,7), (7,9)]</code></li><li><code>**Output:** max non-overlapping = 4: (1,2), (3,5), (7,9) + one of (0,3)/(4,7) variant -&gt; verify count 4</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-090 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"State f(k)'s meaning in words; is your statement precise enough to code from?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-090 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 23</div><div class='case'><span class='tag'>Case cs-091 · Intermediate</span><h2>The Tolerance Ladder</h2><p>Longest increasing subsequence of exam scores. Define the DP state, transition, and read the answer; then reconstruct the sequence itself.</p></div><ul><li><code>**Input:** scores [3, 1, 8, 2, 9, 4]</code></li><li><code>**Output:** LIS = [3, 8, 9] or [1, 8, 9] or [1, 2, 4] or [3, 4]... length 3; dp[i] = longest ending at i</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-091 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Where does the memory go in the memoised version, and what is the trade?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-091 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 23</div><div class='case'><span class='tag'>Case cs-131 · Intermediate</span><h2>The Two-Desk Counter</h2><p>A campus help desk serves students one at a time. Eight students will
+arrive today; their arrival minute and service duration (in minutes) are
+known in advance:</p></div><ul><li><code>**Input:** the arrival/service table, the two designs</code></li><li><code>**Output:** one desk: total wait 48 min, last finish 28 — two desks:</code></li><li><code>total wait 3 min, last finish 18</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-131 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Arrivals double next semester (same gaps, twice the service
+load spread over more students). Does the two-desk advantage grow,
+shrink, or stay put — and how would you check without simulating all
+day?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-131 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 23</div><div class='case'><span class='tag'>Case cs-143 · Intermediate</span><h2>The Shelf Replenishment</h2><p>A corner shop has 20 shelves. One assistant visits each shelf **once
+per day, in a fixed order**, and can restock only what fits in their
+cart (capacity 30 units). Each shelf sells a known number of units per
+day:</p></div><ul><li><code>**Input:** per-day sales rates, cart capacity 30, cadence 1 day</code></li><li><code>**Output:** a rule of the form "restock shelf X to at least 2× its</code></li><li><code>daily rate" — shelf A safe — and the identified failure shelf under</code></li><li><code>cadence 2</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-143 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"Management offers a second assistant who can start mid-day
+but carries only 15 units. Model the effect on your rule's binding
+constraint in two sentences — no full simulation needed."**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-143 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Case attempt · lecture 23</div><div class='case'><span class='tag'>Case cs-092 · Advanced</span><h2>The Budgeted Syllabus</h2><p>Choose topics to study under an hour budget, maximising expected marks (weights and values). Knapsack DP; the table as the solution, not just the number.</p></div><ul><li><code>**Input:** hours [3, 4, 2], marks [50, 70, 40], budget 6</code></li><li><code>**Output:** best: topic2(4h,70) + topic3(2h,40) = 110 marks (vs topic1+3 = 90; topic1+2 over budget)</code></li><li><code>Solve for the worked instance first. Then ask what would change if one</code></li><li><code>number, name, or condition were replaced by something stranger.</code></li></ul><span class='timer'>⏱ 5 minutes — attempt now</span><p class='small'>Pseudocode, flowchart or Python. State one assumption. Compare with your neighbour at minute 4.</p></section>
+<section class="slide"><div class="kicker">Discussion</div><h2>cs-092 — discuss</h2><ul><li>What did the deciding quantity turn out to be?</li><li>Which assumption shaped your answer?</li><li>After the solution is revealed, the class spends five minutes on this
+prompt: **"State f(k)'s meaning in words; is your statement precise enough to code from?"**</li></ul><p class='small'>Instructor: the reveal, the reasoning section and common wrong turns are in the instructor distribution for cs-092 — not embedded in this deck.</p></section>
+<section class="slide"><div class="kicker">Check yourself</div><h2>Common misconceptions</h2><ul><li>Assuming the greedy that works on one example is proven - exchange argument or counterexample, no exceptions.</li><li>Sorting by the wrong key: earliest start fails interval scheduling where earliest end succeeds.</li><li>Memoising without a base case - the cache never fills, the stack never unwinds.</li><li>Iterating the knapsack budget ascending with 0/1 items - that allows reusing an item twice.</li></ul></section>
+<section class="slide"><div class="kicker">Summary</div><h2>Summary &amp; exit question</h2><ul><li>Named technique today: <strong>Greedy and Dynamic Programming</strong></li><li>Four cases attempted — methods before answers</li></ul><h3>Exit question (choose one, 60 seconds)</h3><ol><li>What one input kills cs-089's greedy?</li><li>State the exchange argument for earliest-end scheduling.</li><li>What makes a DP state adequate?</li></ol>
+<div class="notes">Expected answers (instructor): the non-canonical coin set instance from its instructor page swapping a later-ending chosen meeting for an earlier-ending one never hurts it captures everything the future decisions need to know</div></section></div>
+<div class="hint">→ / space: next · ←: back · Home/End: jump · Ctrl+P → PDF</div>
+<footer>L23 · Problem Solving — CS &amp; DS</footer>
+<script>document.addEventListener('keydown',e=>{
+ const d=document.querySelector('.deck');
+ if(['ArrowRight','PageDown',' '].includes(e.key)){d.scrollBy({top:innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){d.scrollBy({top:-innerHeight,behavior:'smooth'});e.preventDefault()}
+ if(e.key==='Home')d.scrollTo({top:0,behavior:'smooth'});
+ if(e.key==='End')d.scrollTo({top:d.scrollHeight,behavior:'smooth'});
+});
+</script></body></html>
