@@ -1,13 +1,14 @@
-name: pages
+name: Deploy Problem Solving Course to GitHub Pages
 
 # Builds the public student site and deploys it to GitHub Pages.
 #
 # Deployment mechanism: the documented GitHub Pages flow —
-# actions/upload-pages-artifact + actions/deploy-pages (Actions-based
-# deployment, not branch commits). The artifact is built from `site/`
-# only; the leak check inside build_site.py fails the job if any
-# instructor-only material reached the output, and the verification
-# step below re-checks the artifact before upload.
+# actions/configure-pages + actions/upload-pages-artifact +
+# actions/deploy-pages (Actions-based deployment, not branch commits).
+# The artifact is built from `site/` only; the leak check inside
+# build_site.py fails the job if any instructor-only material reached the
+# output, and the verification step below re-checks the artifact before
+# upload.
 #
 # Required repository settings (Settings → Pages):
 #   Source: "GitHub Actions"   (not "Deploy from a branch")
@@ -47,6 +48,9 @@ jobs:
       - name: Regenerate case catalog (fails on metadata errors)
         run: python scripts/generate_catalog.py
 
+      - name: Regenerate topic-coverage heatmap (fails on unmapped tags)
+        run: python scripts/gen_topic_heatmap.py
+
       - name: Regenerate slide decks from lecture sources
         run: python scripts/gen_slides.py
 
@@ -71,6 +75,8 @@ jobs:
           from pathlib import Path
 
           out = Path("site")
+          problems = []
+
           # 1. Instructor-only material must never enter the artifact.
           banned = [
               p for p in out.rglob("*")
@@ -80,34 +86,37 @@ jobs:
                   or "teaching-notes" in p.name
               )
           ]
-          for p in banned:
-              print(f"BANNED CONTENT in artifact: {p}", file=sys.stderr)
-          if banned:
-              sys.exit(1)
+          problems += [f"BANNED CONTENT in artifact: {p}" for p in banned]
 
           # 2. Required entry points and coverage must be present.
-          missing = [
-              str(rel) for rel in (
-                  out / "index.html",
-                  out / "search.html",
-                  out / "pages.json",
-                  out / "catalog.html",
-                  *(out / "lectures" / f"lecture-{n:02d}.html" for n in range(1, 33)),
-                  *(out / "slides" / "decks" / f"lecture-{n:02d}-slides.html" for n in range(1, 33)),
-              )
-              if not rel.is_file()
+          required = [
+              out / "index.html",
+              out / "search.html",
+              out / "pages.json",
+              out / "catalog.html",
+              *(out / "lectures" / f"lecture-{n:02d}.html" for n in range(1, 33)),
+              *(out / "slides" / "decks" / f"lecture-{n:02d}-slides.html" for n in range(1, 33)),
           ]
-          for m in missing:
-              print(f"MISSING from artifact: {m}", file=sys.stderr)
-          if missing:
-              sys.exit(1)
+          problems += [f"MISSING from artifact: {p}" for p in required if not p.is_file()]
 
+          # 3. The artifact must publish every student case in the source
+          #    corpus (144), mirroring the validator's pinned size.
+          expected = len(list(Path("case-studies/student").glob("cs-*.md")))
           cases = len(list((out / "cases").glob("cs-*.html")))
-          print(f"artifact OK: entry points present, 32 lectures, 32 decks, {cases} case pages")
-          if cases != 128:
-              print(f"expected 128 case pages, found {cases}", file=sys.stderr)
+          if cases != expected:
+              problems.append(f"artifact has {cases} case pages, expected {expected}")
+          if expected != 144:
+              problems.append(f"source corpus has {expected} student cases, expected 144")
+
+          for p in problems:
+              print(p, file=sys.stderr)
+          if problems:
               sys.exit(1)
+          print(f"artifact OK: entry points present, 32 lectures, 32 decks, {cases}/{expected} case pages")
           EOF
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

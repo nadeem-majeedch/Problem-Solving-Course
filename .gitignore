@@ -9,3 +9,10 @@ qa-report.md
 .DS_Store
 Thumbs.db
 *.log
+.freebuff/
+scripts/
+test/
+.git/
+.pytest_cache/
+qa-report.md
+CONTRIBUTING.md

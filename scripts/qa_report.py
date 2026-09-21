@@ -172,6 +172,9 @@ def main() -> int:
 
     report = "\n".join(lines) + "\n"
     if args.stdout:
+        # Windows consoles may default to a non-UTF-8 code page; the report
+        # contains ✓/✅ glyphs, so print without ever crashing on encoding.
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
         print(report)
     else:
         REPORT.write_text(report, encoding="utf-8")

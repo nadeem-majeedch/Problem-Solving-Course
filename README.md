@@ -2,6 +2,8 @@
 
 **32 lectures · 2 hours each · 64 teaching hours · 144 interactive case studies**
 
+**Published website:** https://nadeem-majeedch.github.io/Problem-Solving-Course/
+
 A complete, classroom-ready course in problem solving for first-, second-, and
 third-semester students of Computer Science and Data Science. Every lecture is
 built around short, projector-displayed case studies: students get about five
@@ -108,6 +110,46 @@ cs-129 … cs-144   applied cases: data science, systems, and communication
                   scenarios integrated into existing lectures
 ```
 
+## Repository
+
+- **GitHub repository:** <https://github.com/nadeem-majeedch/Problem-Solving-Course>
+- **Published website:** <https://nadeem-majeedch.github.io/Problem-Solving-Course/>
+
+## Published Website
+
+The website is configured for publication through GitHub Pages. After the
+workflow is enabled (one manual setting, below) and the repository is pushed,
+it will be available at:
+
+> **https://nadeem-majeedch.github.io/Problem-Solving-Course/**
+
+This is a *project site*: the repository name (`Problem-Solving-Course`)
+appears in the URL path. Every link in the built site is repository-relative,
+so it works identically under this base path and in local preview — no
+configuration change is needed for either.
+
+**What it publishes** (`site/`, built by `scripts/build_site.py`): the
+handbook, all 32 lectures (plans, notes, worked examples, quizzes), all 144
+student case studies, the case catalog, student-facing labs / assignments /
+projects / activities / resources, slide decks, and browser-side search.
+
+**What it never publishes:** instructor solutions, every `keys/` answer-key
+directory, lecture `teaching-notes.md`, and `docs/instructor-reports/`. The
+build's leak check fails loudly if any of this material reaches the output,
+and the deployment workflow re-verifies the artifact before upload.
+Instructors get a separate `public_instructor/` build (including a search
+over solutions) via `python scripts/build_instructor.py`.
+
+**Enabling deployment (one-time, manual):**
+
+1. Settings → Pages → Build and deployment → **Source: GitHub Actions**.
+2. Push to `main` (or open the Actions tab and run
+   **Deploy Problem Solving Course to GitHub Pages** manually).
+3. When the workflow finishes, the URL above is live.
+
+Until the first successful workflow run has completed, treat the URL above
+as *configured but not yet verified*.
+
 ## Quick start
 
 ```bash
@@ -127,6 +169,16 @@ python scripts/build_site.py
 python -m http.server 8000 --directory site
 ```
 
+## Local preview and Pages parity
+
+`python -m http.server 8000 --directory site` serves the same files GitHub
+Pages will publish. Serving over HTTP (not opening files directly) matters:
+`search.html` fetches its index, and some browsers restrict local-file
+pages, so an HTTP server is the faithful local test. Because all site links
+are relative, this preview is an accurate simulation of the project-site
+URL — but it is not the deployment itself; only a completed workflow run
+publishes the site.
+
 ## GitHub Pages
 
 `python scripts/build_site.py` renders the handbook, all 32 lectures, all
@@ -140,8 +192,9 @@ if any solution material appears in the output. Instructors get a separate
 
 To publish: choose **Settings → Pages → Build and deployment → Source:
 GitHub Actions**, then push to `main` — `.github/workflows/pages.yml`
-validates, builds, leak-checks, and deploys automatically. Full details and
-the pre-deploy gate list are in [docs/deployment.md](docs/deployment.md).
+("Deploy Problem Solving Course to GitHub Pages") validates, builds,
+leak-checks, and deploys automatically. Full details and the pre-deploy
+gate list are in [docs/deployment.md](docs/deployment.md).
 
 > Security note: a private directory is **not** a guarantee of secrecy once
 > deployed. The public Pages build physically excludes instructor files rather
@@ -161,6 +214,13 @@ git add -A
 git commit -m "Problem Solving course: 32 lectures, 144 case studies"
 git push origin main
 ```
+
+> Branch note: this checkout is currently on the `master` branch and the
+> remote repository has no commits yet. The deployment workflow triggers on
+> `main` (and manual runs), so either push the course as `main` directly
+> (`git push origin master:main`) and make `main` the default branch, or
+> create `main` locally first (`git branch -m master main` before the first
+> push). Both leave the history intact.
 
 ## Status
 
